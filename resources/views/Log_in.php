@@ -8,7 +8,7 @@
 <body>
     <h1>Inicie sesión</h1>
     <form method="POST">
-        @csrf
+        
         <div>
             <label for="email">Correo Electrónico:</label>
             <input type="email" id="email" name="email" required>
