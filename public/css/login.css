@@ -1,0 +1,50 @@
+  body {
+    margin: 0; /* Elimina los márgenes predeterminados del cuerpo de la página */
+    padding: 0; /* Elimina el relleno predeterminado del cuerpo de la página */
+    background-image: url("../5807701.jpg"); /* Ruta de la imagen de fondo */
+    background-size: cover; /* Ajusta la imagen al tamaño del contenedor */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: center; /* Centra la imagen en la página */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+.card-pr{
+  flex-direction: row;
+  height: 450px;
+}
+
+
+.ct {
+    display: flex;
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    padding-top: 5%;
+  }
+  
+  .c-round {
+    border-radius: 15px; /* Aplica un radio de borde para redondear la tarjeta */
+  overflow: hidden; /* Oculta cualquier contenido que se salga de la tarjeta redondeada */
+  }
+
+.ct-imagen {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    background-color: white;
+}
+
+.body-c {
+    background-color: #6373c9;
+}
+.text-c{
+    color: white;
+    font-weight: bold;
+}
+
+.btn-p{
+    background-color: #ee64c4;
+    color: white;
+}
