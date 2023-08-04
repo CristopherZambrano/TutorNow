@@ -1,37 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log In</title>
-</head>
-<body>
-    <h1>Inicie sesión</h1>
-    <form method="POST">
-
-        <div>
-            <label for="name">Name: </label>
-            <input id="name" name="name" required>
-        </div>
-
-        <div>
-            <label for="lastName">Last name: </label>
-            <input id="lastName" name="lastName" required>
-        </div>
-
-        <div>
-            <label for="user">User:</label>
-            <input id="user" name="user" required>
-        </div>
-
-        <div>
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-
-        <div>
-            <button type="submit">Iniciar Sesión</button>
-        </div>
+@include('layouts.Assets')
+<main>
+    <form method="POST" action="">
+    <button type="button" class="btn volver-button">
+    <i class="bi bi-arrow-left"></i>
+        Volver
+    </button>
+        <div class="ct">
+            <div class="card c-round body-c">
+                <br />
+                <div class="card-body">
+                    <h2 class="card-title text-c">Registro</h2>
+                    <br />
+                    <div class="row mb-3">
+                        <div class="col">
+                        <label for="name" class="form-label text-c">Nombre</label>
+                            <input type="text" id="name" class="form-control" placeholder="Nombre" aria-label="First name">
+                        </div>
+                        <div class="col">
+                        <label for="lastname" class="form-label text-c">Apellido</label>
+                            <input type="text" id="lastname" class="form-control" placeholder="Apellido" aria-label="Last name">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputEmail" class="form-label text-c">Correo</label>
+                        <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Ingrese su correo" name="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputPassword" class="form-label text-c">Contraseña</label>
+                        <input type="password" class="form-control" id="inputPassword" placeholder="Ingrese su contraseña" name="password">
+                    </div>
+                    <div class="container">
+                    </div>
+                    <div class="mb-3" style="text-align: center;">
+                        <br />
+                        <button type="submit" class="btn btn-p" style="text-align: center;">Registrar</button>
+                    </div>
+                </div>
+            </div>
     </form>
-</body>
-</html>
+</main>
