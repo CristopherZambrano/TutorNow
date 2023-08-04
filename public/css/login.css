@@ -50,3 +50,10 @@
     background-color: #ee64c4;
     color: white;
 }
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .col-sm-8 {
+    flex: auto; /* Anula flex: 0 0 auto; */
+    width: initial; /* Anula width: 66.66666667%; */
+  }
+}
