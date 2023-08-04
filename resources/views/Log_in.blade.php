@@ -5,7 +5,7 @@
         @csrf
 
         <div class="ct">
-            <div class="card c-round">
+            <div class="card c-round" style="max-width: 70%;">
                 <div class="row g-0">
                     <div class="col-md-4 ct-imagen">
                         <img src="https://cdn-icons-png.flaticon.com/512/4697/4697260.png" class="img-fluid rounded-start">
