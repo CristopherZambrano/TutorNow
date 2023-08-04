@@ -19,3 +19,7 @@ Route::get('/', function () {
 });
 
 Route::post('logIn', [PersonController::class, 'checkUserExists'])->name('logIn');
+
+Route::get('/registro', function () {
+    return view('Register');
+});

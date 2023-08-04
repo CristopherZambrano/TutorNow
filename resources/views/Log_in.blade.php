@@ -40,7 +40,7 @@
                             
                             <div class="mb-3" style="text-align: center;">
                                 <label class="text-c" for="forgot">¿No tienes cuenta?</label>
-                                <a href="#" class="text-c" for="forgot">Registrate</a>
+                                <a href="registro" class="text-c" for="forgot">Registrate</a>
                             </div>
                         </div>
                         <br />
