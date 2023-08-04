@@ -1,76 +1,109 @@
   body {
-    margin: 0; /* Elimina los márgenes predeterminados del cuerpo de la página */
-    padding: 0; /* Elimina el relleno predeterminado del cuerpo de la página */
-    background-image: url("../5807701.jpg"); /* Ruta de la imagen de fondo */
-    background-size: cover; /* Ajusta la imagen al tamaño del contenedor */
-    background-position: center; /* Centra la imagen en la página */
+    margin: 0;
+    /* Elimina los márgenes predeterminados del cuerpo de la página */
+    padding: 0;
+    /* Elimina el relleno predeterminado del cuerpo de la página */
+    background-image: url("../5807701.jpg");
+    /* Ruta de la imagen de fondo */
+    background-size: cover;
+    /* Ajusta la imagen al tamaño del contenedor */
+    background-position: center;
+    /* Centra la imagen en la página */
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     width: 100vw;
-  height: 100vh;
+    height: 100vh;
   }
 
 
-.ct {
+  .ct {
     display: flex;
-    justify-content: center; /* Centra el contenido horizontalmente */
-    align-items: center; /* Centra verticalmente */
+    justify-content: center;
+    /* Centra el contenido horizontalmente */
+    align-items: center;
+    /* Centra verticalmente */
   }
-  
+
   .c-round {
-    border-radius: 15px; /* Aplica un radio de borde para redondear la tarjeta */
-  overflow: hidden; /* Oculta cualquier contenido que se salga de la tarjeta redondeada */
-  max-width: 70%
+    border-radius: 15px;
+    /* Aplica un radio de borde para redondear la tarjeta */
+    overflow: hidden;
+    /* Oculta cualquier contenido que se salga de la tarjeta redondeada */
   }
 
-.ct-imagen {
+  .ct-imagen {
     display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
+    justify-content: center;
+    /* Centra horizontalmente */
+    align-items: center;
+    /* Centra verticalmente */
     height: auto;
     background-color: white;
-}
+  }
 
-.ct-imagen img{
-    width: 60%; /* La imagen ocupará el 50% del tamaño original */
-    height: auto; /* Para mantener la proporción original de la imagen */
+  .ct-imagen img {
+    width: 60%;
+    /* La imagen ocupará el 50% del tamaño original */
+    height: auto;
+    /* Para mantener la proporción original de la imagen */
     margin: 10px;
-}
+  }
 
-.body-c {
+  .body-c {
     background-color: #6373c9;
     min-height: 100%;
-}
-.text-c{
+  }
+
+  .text-c {
     color: white;
     font-weight: bold;
-}
+  }
 
-.btn-p{
+  .btn-p {
     background-color: #ee64c4;
     color: white;
-}
-
-.alert {
-  position: absolute;
-  top: 10px; /* Ajusta la distancia desde la parte superior */
-  right: 10px; /* Ajusta la distancia desde el borde derecho */
-  padding: 10px; /* Espacio interno para el contenido de la alerta */
-  opacity: 1; /* Inicialmente la alerta es visible */
-  animation: fadeOut 5s ease-in forwards; /* Animación de desvanecimiento */
-}
-
-@keyframes fadeOut {
-  0% { opacity: 1; } /* Empieza completamente visible */
-  90% { opacity: 1; } /* Permanece visible hasta el 90% del tiempo */
-  100% { opacity: 0; display: none; } /* Se desvanece completamente y se oculta */
-}
-
-@media (min-width: 576px) and (max-width: 767px) {
-  .col-sm-8 {
-    flex: auto; /* Anula flex: 0 0 auto; */
-    width: initial; /* Anula width: 66.66666667%; */
   }
-}
+
+  .alert {
+    position: absolute;
+    top: 10px;
+    /* Ajusta la distancia desde la parte superior */
+    right: 10px;
+    /* Ajusta la distancia desde el borde derecho */
+    padding: 10px;
+    /* Espacio interno para el contenido de la alerta */
+    opacity: 1;
+    /* Inicialmente la alerta es visible */
+    animation: fadeOut 5s ease-in forwards;
+    /* Animación de desvanecimiento */
+  }
+
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+
+    /* Empieza completamente visible */
+    90% {
+      opacity: 1;
+    }
+
+    /* Permanece visible hasta el 90% del tiempo */
+    100% {
+      opacity: 0;
+      display: none;
+    }
+
+    /* Se desvanece completamente y se oculta */
+  }
+
+  @media (min-width: 576px) and (max-width: 767px) {
+    .col-sm-8 {
+      flex: auto;
+      /* Anula flex: 0 0 auto; */
+      width: initial;
+      /* Anula width: 66.66666667%; */
+    }
+  }
