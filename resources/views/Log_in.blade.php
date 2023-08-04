@@ -1,6 +1,9 @@
 @include('layouts.Assets')
 <main>
-    <form method="POST">
+    <form method="POST" action="{{route('logIn')}}">
+        
+        @csrf
+
         <div class="ct">
             <div class="card c-round" style="max-width: 60%; ">
                 <div class="row g-0">
@@ -13,11 +16,11 @@
                             <h2 class="card-title text-c">Iniciar Sesión</h2>
                             <div class="mb-3">
                                 <label for="inputEmail" class="form-label text-c">Correo</label>
-                                <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Ingrese su correo">
+                                <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Ingrese su correo" name="email">
                             </div>
                             <div class="mb-3">
                                 <label for="inputPassword" class="form-label text-c">Contraseña</label>
-                                <input type="password" class="form-control" id="inputPassword" placeholder="Ingrese su contraseña">
+                                <input type="password" class="form-control" id="inputPassword" placeholder="Ingrese su contraseña" name="password">
                             </div>
                             <div class="container">
                             <div class="row">
@@ -45,4 +48,9 @@
                 </div>
             </div>
     </form>
+    @if($errors->any())
+        <div class="alert alert-danger">
+            {{$errors->first('error')}}
+        </div>
+    @endif
 </main>
