@@ -3,25 +3,20 @@
     padding: 0; /* Elimina el relleno predeterminado del cuerpo de la página */
     background-image: url("../5807701.jpg"); /* Ruta de la imagen de fondo */
     background-size: cover; /* Ajusta la imagen al tamaño del contenedor */
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
     background-position: center; /* Centra la imagen en la página */
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    width: 100vw;
+  height: 100vh;
   }
-
-.card-pr{
-  flex-direction: row;
-  height: 450px;
-}
 
 
 .ct {
     display: flex;
     justify-content: center; /* Centra el contenido horizontalmente */
     align-items: center; /* Centra verticalmente */
-    padding-top: 5%;
   }
   
   .c-round {
@@ -33,7 +28,14 @@
     display: flex;
     justify-content: center; /* Centra horizontalmente */
     align-items: center; /* Centra verticalmente */
+    height: auto;
     background-color: white;
+}
+
+.ct-imagen img{
+    width: 60%; /* La imagen ocupará el 50% del tamaño original */
+    height: auto; /* Para mantener la proporción original de la imagen */
+    margin: 10px;
 }
 
 .body-c {
