@@ -22,6 +22,7 @@
   .c-round {
     border-radius: 15px; /* Aplica un radio de borde para redondear la tarjeta */
   overflow: hidden; /* Oculta cualquier contenido que se salga de la tarjeta redondeada */
+  max-width: 70%
   }
 
 .ct-imagen {
@@ -40,6 +41,7 @@
 
 .body-c {
     background-color: #6373c9;
+    min-height: 100%;
 }
 .text-c{
     color: white;
@@ -49,6 +51,21 @@
 .btn-p{
     background-color: #ee64c4;
     color: white;
+}
+
+.alert {
+  position: absolute;
+  top: 10px; /* Ajusta la distancia desde la parte superior */
+  right: 10px; /* Ajusta la distancia desde el borde derecho */
+  padding: 10px; /* Espacio interno para el contenido de la alerta */
+  opacity: 1; /* Inicialmente la alerta es visible */
+  animation: fadeOut 5s ease-in forwards; /* Animación de desvanecimiento */
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; } /* Empieza completamente visible */
+  90% { opacity: 1; } /* Permanece visible hasta el 90% del tiempo */
+  100% { opacity: 0; display: none; } /* Se desvanece completamente y se oculta */
 }
 
 @media (min-width: 576px) and (max-width: 767px) {
