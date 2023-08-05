@@ -26,13 +26,19 @@ class PersonController extends Controller
 
     public function RegisterNewUser(Request $request){
         $person = new person();
+
         $person->name = $request->input('name');
         $person->lastName = $request->input('lastName');
         $person->user = $request->input('email');
         $person->password = $request->input('password');
 
-        $person->save();
-
-        return redirect()->back()->with('success', 'Usuario creado exitosamente');        
-    }
+        $exist = person::where('user', $person->user)->first();
+        if($exist){
+            return redirect()->back()->withErrors(['error' => 'Este correo electronico pertenece a una cuenta ya creada']);
+        }
+        else{
+            $person->save();
+            return redirect()->back()->with('success', 'Usuario creado exitosamente');        
+        }
+    }        
 }
