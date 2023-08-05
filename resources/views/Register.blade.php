@@ -1,4 +1,4 @@
-@include('layouts.Assets')
+@include('layouts.Assets_LR')
 <main>
     <form method="POST" action="{{route('register')}}">
 
