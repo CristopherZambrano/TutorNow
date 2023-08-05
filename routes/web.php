@@ -18,7 +18,11 @@ Route::get('/', function () {
     return view('Log_in');
 });
 
+Route::get('/', function(){return view('Log_in');})->name('Genesis');
+
 Route::post('logIn', [PersonController::class, 'checkUserExists'])->name('logIn');
+
+Route::post('register', [PersonController::class, 'RegisterNewUser'])->name('register');
 
 Route::get('/registro', function () {
     return view('Register');

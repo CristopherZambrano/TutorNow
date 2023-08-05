@@ -23,4 +23,16 @@ class PersonController extends Controller
             return redirect()->back()->withErrors(['error' => 'El usuario no existe']);
         }
     }
+
+    public function RegisterNewUser(Request $request){
+        $person = new person();
+        $person->name = $request->input('name');
+        $person->lastName = $request->input('lastName');
+        $person->user = $request->input('email');
+        $person->password = $request->input('password');
+
+        $person->save();
+
+        return redirect()->back()->with('success', 'Usuario creado exitosamente');        
+    }
 }
