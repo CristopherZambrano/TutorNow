@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\person;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class PersonController extends Controller
 {
@@ -13,7 +14,8 @@ class PersonController extends Controller
         $person = person::where('user', $user)->first();
         if($person){
             if($person->password === $password){
-                return view('home');
+                $request->session()->put('persona', $person);
+                return Redirect::route('Home');
             }
             else{
                 return redirect()->back()->withErrors(['error' => 'El usuario y la contraseña no son validos']);
