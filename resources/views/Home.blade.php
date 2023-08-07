@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>TutorNow</title>
-    </head>
-    <body>
+@include('layouts.Assets_P')
+<main>
+    <form>
+        <div class="container">
         <h1>Bienvenido a TutorNow</h1>
         <ul>
             @foreach ($activities as $activity)
@@ -17,5 +15,6 @@
                 </li>
             @endforeach
         </ul>
-    </body>
-</html>
+        </div>
+        </form>
+</main>
