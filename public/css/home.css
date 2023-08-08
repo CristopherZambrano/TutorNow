@@ -1,15 +1,20 @@
-/* Estilo para la barra de navegación */
 .navbar {
-    display: flex;
+    background: linear-gradient(45deg, #212429, #574462, #735AB6, #AF87C5, #735AB6, #574462,#212429);
+}
+
+.navbar-brand {
+    color: white;
+    font-weight: bold;
+}
+
+
+
+.btn {
+    display: inline-flex;
     align-items: center;
 }
 
-/* Estilo para el logo */
-.navbar-brand {
-    margin-right: 20px; /* Margen para separar el logo del otro contenido */
-}
-
-/* Estilo para el contenido del div .navbar-expand-lg */
-.navbar-expand-lg {
-    flex: 1; /* Hace que ocupe todo el espacio disponible en la barra de navegación */
+.btn svg {
+    vertical-align: middle;
+    margin-right: 5px;
 }
