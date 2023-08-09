@@ -1,11 +1,12 @@
 @include('layouts.Assets_P')
 <main>
-    <form>
         <div class="container" <!-- Button trigger modal -->
             <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addActivities">
                 <x-bi-plus-circle-fill /> Nuevo
             </button>
             <!-- Modal -->
+            <form method="POST" action="{{route('RegistrarActividad')}}">
+                @csrf
             <div class="modal fade" id="addActivities" tabindex="-1" aria-labelledby="addActivitiesLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -41,7 +42,7 @@
                             <div class="row">
                                 <div class="col">
                                     <label for="dateImput" class="form-label">Entrega</label>
-                                    <input type="date" name="dateImput" class="form-control" id="dateImput" require>
+                                    <input type="date" name="dateImput" class="form-control" id="dateImput" require min="{{Carbon\Carbon::today()->format('D-M-Y')}}">
                                 </div>
                                 <div class="col">
                                     <label for="asigSelect" class="form-label">Asignatura</label>
@@ -56,12 +57,22 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </div>
             </div>
-
+        </form>
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success')}}
+        </div>
+        @endif
+        @if(session('error'))
+        <div class="alert alert-success">
+            {{ session('error')}}
+        </div>
+        @endif
             <h1>Bienvenido a TutorNow</h1>
             <div class="cont-card">
                 @foreach ($activities as $activity)
@@ -98,9 +109,9 @@
                     Fecha de entrega: {{$activity['Fecha_Entrega']}} <br>
                     Puntaje: {{$activity['Puntaje']}} <br>
                     Estado: {{$activity['Estado']}} <br>
+                    Color: {{$activity['Color']}} <br>
                 </li>
                 @endforeach
             </ul>
         </div>
-    </form>
 </main>
