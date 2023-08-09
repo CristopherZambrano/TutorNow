@@ -14,7 +14,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="row">
+<!--                             <div class="row">
                                 <div class="col">
                                     <label for="stateSelect" class="form-label">Estado</label>
                                     <select class="form-select" name="stateSelect" id="stateSelect" require>
@@ -29,7 +29,7 @@
                                     <input type="number" name="califImput" class="form-control" id="califImput">
                                 </div>
 
-                            </div>
+                            </div> -->
                             <div class="mb-3">
                                 <label for="titleloImput" class="form-label">Titulo</label>
                                 <input name="titleImput" class="form-control" id="titleImput" require>
