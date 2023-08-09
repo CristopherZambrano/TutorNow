@@ -1,3 +1,21 @@
+:root {
+    --color-1: #FF5733;
+    --color-2: #E74C3C;
+    --color-3: #3498DB;
+    --color-4: #9B59B6;
+    --color-5: #2ECC71;
+    --color-6: #F39C12;
+    --color-7: #1ABC9C;
+    --color-8: #D35400;
+    --color-9: #C0392B;
+    --color-10: #2980B9;
+    --color-11: #8E44AD;
+    --color-12: #27AE60;
+    --color-13: #F1C40F;
+    --color-14: #16A085;
+    --color-15: #E67E22;
+  }
+
 .navbar {
     background: linear-gradient(45deg, #212429, #574462, #735AB6, #AF87C5, #735AB6, #574462,#212429);
 }
@@ -7,8 +25,6 @@
     font-weight: bold;
 }
 
-
-
 .btn {
     display: inline-flex;
     align-items: center;
@@ -17,4 +33,51 @@
 .btn svg {
     vertical-align: middle;
     margin-right: 5px;
+}
+
+/*Cards*/
+
+.cont-card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.card {
+    display: flex;
+    margin: 10px;
+    box-sizing: border-box;
+}
+
+.card-body {
+    max-width: 225px; 
+    max-height: 200px; 
+    overflow-y: auto;
+}
+
+.card-tx {
+    font-weight: bolder;
+}
+
+.card-text {
+    font-weight: lighter;
+}
+
+
+
+@media (max-width: 768px) {
+    .card {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: 100%;
+    }
+}
+
+.card-color {
+    /* Agrega el color de fondo basado en el atributo 'data-color' */
+    background-color: var(--color);
 }

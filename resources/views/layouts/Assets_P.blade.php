@@ -27,7 +27,7 @@
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#"><x-bi-house-fill /> Inicio</a>
+                            <a class="nav-link active" aria-current="page" href="#"><x-bi-house-heart-fill /> Inicio</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#"><x-bi-calendar-check-fill /> Calendario</a>
