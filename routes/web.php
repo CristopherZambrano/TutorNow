@@ -28,3 +28,5 @@ Route::get('/registro', function () { return view('Register'); });
 Route::get('Home', [activityController::class,'listActivityPending'])->name('Home');
 
 Route::post('RegisterActivity', [activityController::class, 'RegisterActivity'])->name('RegistrarActividad');
+
+Route::get('/activity/{id}', [activityController::class, 'show'])->name('ActivityShow');

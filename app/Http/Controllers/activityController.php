@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Madcoda\Youtube\Youtube;
 
 class activityController extends Controller
 {
@@ -61,5 +62,26 @@ class activityController extends Controller
         } catch(\Exception $e){
             dd($e->getMessage());
         }
+    }
+
+    public function Show($id){
+        $activity = activity::findOrFail($id);
+        $youtube = new Youtube(['key' => env('YOUTUBE_API_KEY')]);
+        
+        if(isset($activity->title)){
+            $videos = $youtube->searchVideos($activity->title,3);
+        }else{
+            if(isset($activity->description)){
+                $videos = $youtube->searchVideos($activity->description,3);
+            }
+            else{
+                $videos = $youtube->searchVideos('Uteq',3);
+            }
+        }
+
+        return view('ActivityDetails', [
+            'activity' => $activity,
+            'videos' => $videos,
+        ]);
     }
 }

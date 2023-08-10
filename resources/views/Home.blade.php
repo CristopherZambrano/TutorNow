@@ -77,11 +77,13 @@
             <div class="cont-card">
                 @foreach ($activities as $activity)
                 <div class="card card-tx mb-3" style="max-width: 18rem;">
+                    <a href="{{ route('ActivityShow', ['id' => $activity['id']]) }}" class="card-link">
                     <div class="card-header card-color" data-color="color-1">{{$activity['Asignatura']}}<br></div> <!-- Aqui necesito que card-color<id de asignatura> -->
                     <div class="card-body">
                         <h5 class="card-title">Titulo de tarea</h5><!-- Titulo de tarea -->
                         <p class="card-text"> {{$activity['Descripcion']}} </p>
                     </div>
+                    </a>
                 </div>
                 @endforeach
                 <div class="card card-tx mb-3" style="max-width: 18rem;">
