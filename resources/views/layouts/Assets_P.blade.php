@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}" >
+    
 </head>
 
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{{ asset('Home') }}">
                 <img src="https://cdn-icons-png.flaticon.com/512/4697/4697260.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
                 TutorNow
             </a>
@@ -27,10 +28,13 @@
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#"><x-bi-house-heart-fill /> Inicio</a>
+                            <a class="nav-link active" aria-current="page" href="/Home"><x-bi-house-heart-fill /> Inicio</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#"><x-bi-calendar-check-fill /> Calendario</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/subject"><x-bi-calendar-check-fill /> Asignaturas</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -43,7 +47,7 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#"><x-bi-arrow-left-square-fill /> Salir</a></li>
+                                <li><a class="dropdown-item" href="/"><x-bi-arrow-left-square-fill /> Salir</a></li>
                             </ul>
                         </li>
                     </ul>

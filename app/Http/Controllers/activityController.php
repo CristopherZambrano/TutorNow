@@ -23,12 +23,11 @@ class activityController extends Controller
             ->whereIn('status', ['Pendiente', 'En proceso'])
             ->get();
         foreach($activitys as $activity){
-            $contador += 1;
             $signature = signature::where('id', $activity->id_signature)->first();
             $activities []= [
                 'id' => $activity->id,
                 'idAsignatura' => $activity->id_signature,
-                'Color' =>$contador,
+                'Color' =>$signature->color,
                 'Asignatura' => $signature->name,
                 'Titulo' => $activity->title,
                 'Descripcion' => $activity->description,
@@ -83,5 +82,33 @@ class activityController extends Controller
             'activity' => $activity,
             'videos' => $videos,
         ]);
+    }
+
+
+    /**
+     * LISTA DE ASIGNATURAS
+     */
+
+     public function listAsig(Request $request){
+        $person = $request->session()->get('persona');
+$count = 1;
+        $signatures = [];
+        $asignatura = DB::table('signature as s')
+            ->select('s.id', 's.name', 's.teacher', 's.color')
+            ->distinct()
+            ->join('activity as a', 'a.id_signature', '=', 's.id')
+            ->where('a.id_person', $person->id)
+            ->get();
+        foreach($asignatura as $signature){
+            $signatures []= [
+                'num'=> $count,
+                'idAsig'=> $signature->id,
+                'materia' => $signature->name,
+                'profesor' => $signature->teacher,
+                'Color' =>$signature->color,
+            ];
+            $count++;
+        }
+        return view('Home', compact('signatures'));
     }
 }

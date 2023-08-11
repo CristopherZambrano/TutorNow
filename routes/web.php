@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\activityController;
 use App\Http\Controllers\PersonController;
+use App\Http\Controllers\AsigController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,3 +31,9 @@ Route::get('Home', [activityController::class,'listActivityPending'])->name('Hom
 Route::post('RegisterActivity', [activityController::class, 'RegisterActivity'])->name('RegistrarActividad');
 
 Route::get('/activity/{id}', [activityController::class, 'show'])->name('ActivityShow');
+
+//Route::get('subject', [AsigController::class,'listActivityPending'])->name('Home');
+
+Route::post('RegistrarAsig', [AsigController::class, 'RegisterAsig'])->name('RegistrarAsig');
+
+Route::get('subject', [AsigController::class,'listAsig'])->name('subject');
