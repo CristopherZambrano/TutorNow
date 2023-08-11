@@ -65,6 +65,7 @@ class activityController extends Controller
 
     public function Show($id){
         $activity = activity::findOrFail($id);
+        $signature = signature::findOrFail($activity->id_signature);
         $youtube = new Youtube(['key' => env('YOUTUBE_API_KEY')]);
         
         if(isset($activity->title)){
@@ -81,34 +82,8 @@ class activityController extends Controller
         return view('ActivityDetails', [
             'activity' => $activity,
             'videos' => $videos,
+            'signature' => $signature,
         ]);
     }
 
-
-    /**
-     * LISTA DE ASIGNATURAS
-     */
-
-     public function listAsig(Request $request){
-        $person = $request->session()->get('persona');
-$count = 1;
-        $signatures = [];
-        $asignatura = DB::table('signature as s')
-            ->select('s.id', 's.name', 's.teacher', 's.color')
-            ->distinct()
-            ->join('activity as a', 'a.id_signature', '=', 's.id')
-            ->where('a.id_person', $person->id)
-            ->get();
-        foreach($asignatura as $signature){
-            $signatures []= [
-                'num'=> $count,
-                'idAsig'=> $signature->id,
-                'materia' => $signature->name,
-                'profesor' => $signature->teacher,
-                'Color' =>$signature->color,
-            ];
-            $count++;
-        }
-        return view('Home', compact('signatures'));
-    }
 }
