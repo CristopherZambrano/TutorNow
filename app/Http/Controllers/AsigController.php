@@ -20,7 +20,7 @@ class AsigController extends Controller
             $signature->color = $request->input('inputColor');
 
             $signature->save();
-            return redirect()->route('/subject')->with('success', 'Nueva asignatura registrada');
+            return redirect()->route('subject')->with('success', 'Nueva asignatura registrada');
         } catch (\Exception $e) {
             dd($e->getMessage());
         }
@@ -28,7 +28,7 @@ class AsigController extends Controller
 
     public function listAsig(Request $request){
         $person = $request->session()->get('persona');
-$count = 1;
+        $count = 1;
         $signatures = [];
         $asignatura = DB::table('signature as s')
             ->select('s.id', 's.name', 's.teacher', 's.color')
