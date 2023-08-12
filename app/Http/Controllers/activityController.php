@@ -36,7 +36,11 @@ class activityController extends Controller
                 'Estado' => $activity->status,
             ];
         }
-        return view('Home', compact('activities'));
+        $signature = signature::all();
+        return view('Home', [
+            'activities' => $activities,
+            'signature' =>$signature,
+        ]);
     }
 
     public function RegisterActivity(Request $request){
