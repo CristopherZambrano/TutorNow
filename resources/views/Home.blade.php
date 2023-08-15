@@ -47,12 +47,14 @@
                                     <select class="form-select" aria-label="Default select example" name="asigSelect"
                                         require>
                                         <option selected>Open this select menu</option>
-                                        <option value="1">...</option>
+                                        @foreach($signature as $signa)
+                                            <option value="{{$signa['id']}}">{{$signa['name']}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer"> 
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-primary">Guardar</button>
                         </div>
