@@ -46,7 +46,7 @@
                                     <label for="asigSelect" class="form-label">Asignatura</label>
                                     <select class="form-select" aria-label="Default select example" name="asigSelect"
                                         require>
-                                        <option selected>Open this select menu</option>
+                                        <option selected disabled>Seleccione</option>
                                         @foreach($signature as $signa)
                                             <option value="{{$signa['id']}}">{{$signa['name']}}</option>
                                         @endforeach
@@ -76,12 +76,12 @@
 
         <div class="cont-card">
             @foreach ($activities as $activity)
-                <div class="card card-ct card-tx mb-3">
+                <div class="card card-ct card-tx mb-3" style="width: 18rem">
                     <div class="card-header" style="background-color:{{ $activity['Color'] }}">
                         {{ $activity['Asignatura'] }}<br></div> <!-- Aqui necesito que card-color<id de asignatura> -->
                     <div class="card-body card-body-ct">
                         <h5 class="card-title">{{ $activity['Titulo'] }}</h5><!-- Titulo de tarea -->
-                        <p class="card-text"> {{ $activity['Descripcion'] }} </p>
+                        <p class="card-text truncate"> {{ $activity['Descripcion'] }} </p>
                         <a href="{{ route('ActivityShow', ['id' => $activity['id']]) }}" class="btn btn-primary">
                             Ver más</a>
                     </div>

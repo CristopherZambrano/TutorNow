@@ -11,17 +11,16 @@
                     data-bs-target="#editActivity">
                     <x-bi-pencil-square /> Editar
                 </button>
-                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#">
+                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" 
+                data-bs-target="#deleteModal">
                     <x-bi-trash /> Eliminar
+                   {{--  {{ route('ActivityShow', ['id' => $activity['id']]) }} --}}
                 </button>
             </div>
         </div>
     </div>
     <hr style="background-color: #735AB6">
     <br />
-
-        {{-- {{ $signature }}
-        {{ $activity }} --}}
 
     <div class="container">
         <div class="card card-edit">
@@ -53,7 +52,7 @@
 
     <div class="container">
         <!-- Modal -->
-        <form method="POST">
+        <form method="POST" action="{{ route('ActActividad', ['id' => $activity['id']]) }}">
             @csrf
             <div class="modal fade" id="editActivity" tabindex="-1" aria-labelledby="editActivityLabel"
                 aria-hidden="true">
@@ -65,26 +64,44 @@
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="stateEdit" class="form-label">Estado</label>
+                                    <select class="form-select" aria-label="Default select example" name="stateEdit"
+                                    id="stateEdit" require>
+                                        <option selected value="{{ $activity->status }}">{{ $activity->status }}</option>
+                                            <option value="Pendiente">Pendiente</option>
+                                            <option value="En proceso">En proceso</option>
+                                            <option value="Completado">Completado</option>
+                                    </select>
+                                </div>
+                                <div class="col" id="scoreContainer" style="display: none">
+                                    <label for="scoreInput" class="form-label">Calificación</label>
+                                    <input type="number" value="{{ $activity->score }}" name="scoreInput" class="form-control" id="scoreInput">
+                                </div>
+                            </div>
                             <div class="mb-3">
-                                <label for="titleloImput" class="form-label">Titulo</label>
-                                <input name="titleImput" class="form-control" id="titleImput" require>
+                                <label for="titleImput" class="form-label">Titulo</label>
+                                <input name="titleImput" value="{{ $activity->title }}" class="form-control" id="titleImput" require>
                             </div>
                             <div class="mb-3">
                                 <label for="descImput" class="form-label">Descripción</label>
-                                <textarea name="descImput" class="form-control" id="descImput" rows="3"></textarea>
+                                <textarea name="descImput"  class="form-control" id="descImput" rows="3">{{ $activity->description }}</textarea>
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <label for="dateImput" class="form-label">Entrega</label>
-                                    <input type="date" name="dateImput" class="form-control" id="dateImput" require
+                                    <input type="date" value="{{ $activity->deadline }}" name="dateImput" class="form-control" id="dateImput" require
                                         min="{{ Carbon\Carbon::today()->format('D-M-Y') }}">
                                 </div>
                                 <div class="col">
                                     <label for="asigSelect" class="form-label">Asignatura</label>
                                     <select class="form-select" aria-label="Default select example" name="asigSelect"
                                         require>
-                                        <option selected>Open this select menu</option>
-                                        <option value="1">...</option>
+                                        <option selected value="{{ $signature->id }}">{{ $signature->name }}</option>
+                                        @foreach($signas as $signa)
+                                            <option value="{{$signa['id']}}">{{$signa['name']}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -97,21 +114,43 @@
                 </div>
             </div>
         </form>
+
+        <form method="GET" action="{{ route('delActividad', ['id' => $activity['id']]) }}">
+            <div class="modal" tabindex="-1" id="deleteModal">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Eliminar Actividad</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Esta seguro de que desea eliminar la actividad:</p>
+                      <p style="font-weight: bold;">{{ $activity->title }} </p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                      <button type="submit" class="btn btn-danger">Si</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </form>
     </div>
-
-
     <div class="container" style="text-align: center;">
         <h1>Videos relacionados a la actividad</h1>
     </div>
     <br />
     <div class="ct">
-        <ul>
-            @foreach ($videos as $video)
+        <ul class="video-list">
+           {{-- esto esta comentado--}}
+             @foreach ($videos as $video)
                 <li>
                     <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ $video->id->videoId }}"
                         frameborder="0" allowfullscreen></iframe>
                 </li>
-            @endforeach
+            @endforeach 
         </ul>
     </div>
+
+    <script src="{{ asset('js/colors.js') }}"></script>
 </main>

@@ -12,12 +12,14 @@ class AsigController extends Controller
     public function RegisterAsig(Request $request)
     {
         try {
+            $person = $request->session()->get('persona');
             $signature = new signature();
             // $person = $request->session()->get('persona');
 
             $signature->name = $request->input('inputNombre');
             $signature->teacher = $request->input('inputProfesor');
             $signature->color = $request->input('inputColor');
+            $signature->id_person = $person->id;
 
             $signature->save();
             return redirect()->route('subject')->with('success', 'Nueva asignatura registrada');
@@ -30,11 +32,8 @@ class AsigController extends Controller
         $person = $request->session()->get('persona');
         $count = 1;
         $signatures = [];
-        $asignatura = DB::table('signature as s')
-            ->select('s.id', 's.name', 's.teacher', 's.color')
-            ->distinct()
-            ->join('activity as a', 'a.id_signature', '=', 's.id')
-            ->where('a.id_person', $person->id)
+        $asignatura = DB::table('signature')
+            ->where('id_person', $person->id)
             ->get();
         foreach($asignatura as $signature){
             $signatures []= [
@@ -47,5 +46,16 @@ class AsigController extends Controller
             $count++;
         }
         return view('Asig', compact('signatures'));
+    }
+
+    public function deleteSubject($id){
+        $signature = signature::find($id);
+
+        if ($signature) {
+            $signature->delete();
+            return redirect()->back()->with('success', 'Actividad eliminada correctamente.');
+        } else {
+            return redirect()->back()->with('error', 'Error al eliminar.');
+        }
     }
 }

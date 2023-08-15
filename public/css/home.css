@@ -51,7 +51,7 @@
 
 .card-body-ct {
     max-width: 20rem; 
-    max-height: 200px; 
+    max-height: 12rem; 
     overflow-y: auto;
 }
 
@@ -61,15 +61,19 @@
 
 .card-text {
     font-weight: lighter;
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Número de líneas deseado */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-
-
 
 @media (max-width: 768px) {
     .card-ct {
         width: calc(50% - 20px);
     }
 }
+
 
 @media (max-width: 480px) {
     .card-ct {
@@ -107,3 +111,37 @@
   .col-sm-9 {
     width: 100%;
 }
+
+/*
+PARTE DE LOS VIDEOS DE YOUTUBE
+*/
+
+.video-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+}
+
+/*ALERTAS*/
+.alert {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+    opacity: 1;
+    animation: fadeOut 5s ease-in forwards;
+  }
+
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      display: none;
+    }
+  }

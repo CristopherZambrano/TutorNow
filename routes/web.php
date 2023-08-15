@@ -26,14 +26,38 @@ Route::post('register', [PersonController::class, 'RegisterNewUser'])->name('reg
 
 Route::get('/registro', function () { return view('Register'); });
 
+
+/*Avtividades */
+
 Route::get('Home', [activityController::class,'listActivityPending'])->name('Home');
+
+//registrar actividad
 
 Route::post('RegisterActivity', [activityController::class, 'RegisterActivity'])->name('RegistrarActividad');
 
+//mostrar detalle de actividad
+
 Route::get('/activity/{id}', [activityController::class, 'show'])->name('ActivityShow');
 
-//Route::get('subject', [AsigController::class,'listActivityPending'])->name('Home');
+//actualizar actividad
+
+Route::post('updateAct/{id}', [activityController::class, 'updateActivity'])->name('ActActividad');
+
+//eliminar actividad
+
+Route::get('deleteAct/{id}', [activityController::class, 'deleteActivity'])->name('delActividad'); 
+
+
+/*Asignaturas */
 
 Route::post('RegistrarAsig', [AsigController::class, 'RegisterAsig'])->name('RegistrarAsig');
 
 Route::get('subject', [AsigController::class,'listAsig'])->name('subject');
+
+//actualizar actividad
+
+//Route::post('updateAsig/{id}', [AsigController::class, 'updateActivity'])->name('ActActividad');
+
+//eliminar actividad
+
+Route::get('deleteAsig/{id}', [AsigController::class, 'deleteSubject'])->name('delAsignatura'); 
