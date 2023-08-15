@@ -34,7 +34,7 @@
                             <a class="nav-link" href="#"><x-bi-calendar-check-fill /> Calendario</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="subject"><x-bi-calendar-check-fill /> Asignaturas</a>
+                            <a class="nav-link" href="{{ asset('subject') }}"><x-bi-calendar-check-fill /> Asignaturas</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
