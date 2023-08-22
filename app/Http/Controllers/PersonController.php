@@ -40,7 +40,7 @@ class PersonController extends Controller
         }
         else{
             $person->save();
-            return redirect()->back()->with('success', 'Usuario creado exitosamente');        
+            return redirect()->route('Genesis')->with('success', 'Usuario creado exitosamente');        
         }
     }        
 }

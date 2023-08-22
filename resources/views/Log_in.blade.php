@@ -35,7 +35,7 @@
                             </div>
                             <div class="mb-3" style="text-align: center;">
                             <br />
-                            <button type="submit" class="btn btn-p" style="text-align: center;">Submit</button>
+                            <button type="submit" class="btn btn-p" style="text-align: center;">Ingresar</button>
                             </div>
                             
                             <div class="mb-3" style="text-align: center;">
@@ -48,6 +48,11 @@
                 </div>
             </div>
     </form>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success')}}
+        </div>
+    @endif
     @if($errors->any())
         <div class="alert alert-danger">
             {{$errors->first('error')}}
