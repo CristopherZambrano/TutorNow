@@ -10,6 +10,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Madcoda\Youtube\Youtube;
+use GuzzleHttp\Client;
 
 class activityController extends Controller
 {
@@ -76,13 +77,39 @@ class activityController extends Controller
 
         if (isset($activity->title)) {
             $videos = $youtube->searchVideos($activity->title, 3);
+            $query = $activity->title;
         } else {
             if (isset($activity->description)) {
                 $videos = $youtube->searchVideos($activity->description, 3);
+                $query = $activity->description;
             } else {
+                $query = 'Uteq';
                 $videos = $youtube->searchVideos('Uteq', 3);
             }
         }
+
+        $client = new Client();
+        $response = $client->get('https://www.googleapis.com/customsearch/v1',[
+            'query' => [
+                'q' => $query,
+                'key' => env('YOUTUBE_API_KEY'),
+                'cx' => env('ID_BUSCADOR'),
+                'fileType' => 'pdf',
+            ],
+        ]);
+        $PDFs = json_decode($response->getBody(),true);
+
+
+        $response = $client->get('https://www.googleapis.com/customsearch/v1',[
+            'query' => [
+                'q' => $query,
+                'key' => env('YOUTUBE_API_KEY'),
+                'cx' => env('ID_BUSCADOR'),
+                'fileType' => 'pptx',
+            ],
+        ]);
+        $Diapositivas = json_decode($response->getBody(),true);
+
         $signas = Signature::where('id_person', $activity->id_person)->get();
 
         return view('ActivityDetails', [
@@ -90,6 +117,8 @@ class activityController extends Controller
             'videos' => $videos,
             'signature' => $signature,
             'signas' => $signas,
+            'PDFs' => $PDFs,
+            'Diapositivas' => $Diapositivas,
         ]);
     }
 

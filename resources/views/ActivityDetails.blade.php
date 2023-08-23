@@ -151,6 +151,36 @@
             @endforeach 
         </ul>
     </div>
+    <div class="container" style="text-align: center;">
+        <h1>Archivos PDFs relacionados a la actividad</h1>
+    </div>
+    <div>
+        <ul>
+            @foreach($PDFs['items'] as $PDF)
+                <li>
+                    <a href="{{$PDF['link']}}" target="_blank">
+                        {{$PDF['title']}}
+                    </a>
+                    <p>{{$PDF['snippet']}}</p>
+                </li>
+            @endforeach
+        </ul>
+    </div>
+    <div class="container" style="text-align: center;">
+        <h1>Diapositivas relacionadas a la actividad</h1>
+    </div>
+    <div>
+        <ul>
+            @foreach($Diapositivas['items'] as $Diapositiva)
+                <li>
+                    <a href="{{$Diapositiva['link']}}" target="_blank">
+                        {{$Diapositiva['title']}}
+                    </a>
+                    <p>{{$Diapositiva['snippet']}}</p>
+                </li>
+            @endforeach
+        </ul>
+    </div>
 
     <script src="{{ asset('js/colors.js') }}"></script>
 </main>
