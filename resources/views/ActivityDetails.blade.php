@@ -11,10 +11,10 @@
                     data-bs-target="#editActivity">
                     <x-bi-pencil-square /> Editar
                 </button>
-                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" 
-                data-bs-target="#deleteModal">
+                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                    data-bs-target="#deleteModal">
                     <x-bi-trash /> Eliminar
-                   {{--  {{ route('ActivityShow', ['id' => $activity['id']]) }} --}}
+                    {{--  {{ route('ActivityShow', ['id' => $activity['id']]) }} --}}
                 </button>
             </div>
         </div>
@@ -68,30 +68,34 @@
                                 <div class="col">
                                     <label for="stateEdit" class="form-label">Estado</label>
                                     <select class="form-select" aria-label="Default select example" name="stateEdit"
-                                    id="stateEdit" require>
-                                        <option selected value="{{ $activity->status }}">{{ $activity->status }}</option>
-                                            <option value="Pendiente">Pendiente</option>
-                                            <option value="En proceso">En proceso</option>
-                                            <option value="Completado">Completado</option>
+                                        id="stateEdit" require>
+                                        <option selected value="{{ $activity->status }}">{{ $activity->status }}
+                                        </option>
+                                        <option value="Pendiente">Pendiente</option>
+                                        <option value="En proceso">En proceso</option>
+                                        <option value="Completado">Completado</option>
                                     </select>
                                 </div>
                                 <div class="col" id="scoreContainer" style="display: none">
                                     <label for="scoreInput" class="form-label">Calificación</label>
-                                    <input type="number" value="{{ $activity->score }}" name="scoreInput" class="form-control" id="scoreInput">
+                                    <input type="number" value="{{ $activity->score }}" name="scoreInput"
+                                        class="form-control" id="scoreInput">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="titleImput" class="form-label">Titulo</label>
-                                <input name="titleImput" value="{{ $activity->title }}" class="form-control" id="titleImput" require>
+                                <input name="titleImput" value="{{ $activity->title }}" class="form-control"
+                                    id="titleImput" require>
                             </div>
                             <div class="mb-3">
                                 <label for="descImput" class="form-label">Descripción</label>
-                                <textarea name="descImput"  class="form-control" id="descImput" rows="3">{{ $activity->description }}</textarea>
+                                <textarea name="descImput" class="form-control" id="descImput" rows="3">{{ $activity->description }}</textarea>
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <label for="dateImput" class="form-label">Entrega</label>
-                                    <input type="date" value="{{ $activity->deadline }}" name="dateImput" class="form-control" id="dateImput" require
+                                    <input type="date" value="{{ $activity->deadline }}" name="dateImput"
+                                        class="form-control" id="dateImput" require
                                         min="{{ Carbon\Carbon::today()->format('D-M-Y') }}">
                                 </div>
                                 <div class="col">
@@ -99,8 +103,8 @@
                                     <select class="form-select" aria-label="Default select example" name="asigSelect"
                                         require>
                                         <option selected value="{{ $signature->id }}">{{ $signature->name }}</option>
-                                        @foreach($signas as $signa)
-                                            <option value="{{$signa['id']}}">{{$signa['name']}}</option>
+                                        @foreach ($signas as $signa)
+                                            <option value="{{ $signa['id'] }}">{{ $signa['name'] }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -118,69 +122,108 @@
         <form method="GET" action="{{ route('delActividad', ['id' => $activity['id']]) }}">
             <div class="modal" tabindex="-1" id="deleteModal">
                 <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Eliminar Actividad</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Eliminar Actividad</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Esta seguro de que desea eliminar la actividad:</p>
+                            <p style="font-weight: bold;">{{ $activity->title }} </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger">Si</button>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                      <p>Esta seguro de que desea eliminar la actividad:</p>
-                      <p style="font-weight: bold;">{{ $activity->title }} </p>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                      <button type="submit" class="btn btn-danger">Si</button>
-                    </div>
-                  </div>
                 </div>
-              </div>
+            </div>
         </form>
     </div>
     <div class="container" style="text-align: center;">
-        <h1>Videos relacionados a la actividad</h1>
+        <h1>Material relacionado con la actividad</h1>
     </div>
     <br />
-    <div class="ct">
-        <ul class="video-list">
-           {{-- esto esta comentado--}}
-             @foreach ($videos as $video)
-                <li>
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ $video->id->videoId }}"
-                        frameborder="0" allowfullscreen></iframe>
-                </li>
-            @endforeach 
-        </ul>
-    </div>
-    <div class="container" style="text-align: center;">
-        <h1>Archivos PDFs relacionados a la actividad</h1>
-    </div>
-    <div>
-        <ul>
-            @foreach($PDFs['items'] as $PDF)
-                <li>
-                    <a href="{{$PDF['link']}}" target="_blank">
-                        {{$PDF['title']}}
-                    </a>
-                    <p>{{$PDF['snippet']}}</p>
-                </li>
-            @endforeach
-        </ul>
-    </div>
-    <div class="container" style="text-align: center;">
-        <h1>Diapositivas relacionadas a la actividad</h1>
-    </div>
-    <div>
-        <ul>
-            @foreach($Diapositivas['items'] as $Diapositiva)
-                <li>
-                    <a href="{{$Diapositiva['link']}}" target="_blank">
-                        {{$Diapositiva['title']}}
-                    </a>
-                    <p>{{$Diapositiva['snippet']}}</p>
-                </li>
-            @endforeach
-        </ul>
-    </div>
+    <div class="container">
+     <div class="accordion container" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                    aria-controls="panelsStayOpen-collapseOne">
+                    Videos
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse ">
+                <div class="accordion-body">
+                    <div class="ct">
+                        <ul class="video-list">
+                            @foreach ($videos as $video)
+                                <li>
+                                    <iframe width="560" height="315"
+                                        src="https://www.youtube.com/embed/{{ $video->id->videoId }}" frameborder="0"
+                                        allowfullscreen></iframe>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseTwo">
+                    PDFs
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <div>
+                        <ul>
+                            @foreach ($PDFs['items'] as $PDF)
+                                <li>
+                                    <a href="{{ $PDF['link'] }}" target="_blank">
+                                        {{ $PDF['title'] }}
+                                    </a>
+                                    <p>{{ $PDF['snippet'] }}</p>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseThree">
+                    PowertPoint
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <div>
+                        <ul>
+                            @foreach ($Diapositivas['items'] as $Diapositiva)
+                                <li>
+                                    <a href="{{ $Diapositiva['link'] }}" target="_blank">
+                                        {{ $Diapositiva['title'] }}
+                                    </a>
+                                    <p>{{ $Diapositiva['snippet'] }}</p>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <br/>
 
     <script src="{{ asset('js/colors.js') }}"></script>
 </main>

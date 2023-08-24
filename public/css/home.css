@@ -19,12 +19,18 @@
 
 /*Cards*/
 
+
+
 .ct {
     display: flex;
     justify-content: center;
     align-items: center;
     
   }
+
+  .hidden {
+    display: none;
+}
 
 
 .cont-card {

@@ -14,6 +14,19 @@
         </div>
     </div>
     <hr style="background-color: #735AB6">
+
+    <div class="container">
+        <div class="col-md-2">
+            <label for="asigSelect1" class="form-label">Asignatura</label>
+            <select class="form-select" aria-label="Default select example" id="asigSelect1" onchange="filterActivities()">
+                <option selected value="0">Todos</option>
+                @foreach ($signature as $signaS)
+                    <option value="{{ $signaS['name'] }}">{{ $signaS['name'] }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+
     <div class="container">
         <!-- Modal -->
         <form method="POST" action="{{ route('RegistrarActividad') }}">
@@ -47,14 +60,14 @@
                                     <select class="form-select" aria-label="Default select example" name="asigSelect"
                                         require>
                                         <option selected disabled>Seleccione</option>
-                                        @foreach($signature as $signa)
-                                            <option value="{{$signa['id']}}">{{$signa['name']}}</option>
+                                        @foreach ($signature as $signa)
+                                            <option value="{{ $signa['id'] }}">{{ $signa['name'] }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer"> 
+                        <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-primary">Guardar</button>
                         </div>
@@ -63,30 +76,57 @@
             </div>
         </form>
     </div>
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-        @if (session('error'))
-            <div class="alert alert-success">
-                {{ session('error') }}
-            </div>
-        @endif
-
-        <div class="cont-card">
-            @foreach ($activities as $activity)
-                <div class="card card-ct card-tx mb-3" style="width: 18rem">
-                    <div class="card-header" style="background-color:{{ $activity['Color'] }}">
-                        {{ $activity['Asignatura'] }}<br></div> <!-- Aqui necesito que card-color<id de asignatura> -->
-                    <div class="card-body card-body-ct">
-                        <h5 class="card-title">{{ $activity['Titulo'] }}</h5><!-- Titulo de tarea -->
-                        <p class="card-text truncate"> {{ $activity['Descripcion'] }} </p>
-                        <a href="{{ route('ActivityShow', ['id' => $activity['id']]) }}" class="btn btn-primary">
-                            Ver más</a>
-                    </div>
-                    </a>
-                </div>
-            @endforeach
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
         </div>
+    @endif
+    @if (session('error'))
+        <div class="alert alert-success">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    <div class="cont-card">
+        @foreach ($activities as $activity)
+            <div class="card card-ct card-tx mb-3 hidden" style="width: 18rem"
+                data-asignatura="{{ $activity['Asignatura'] }}">
+                <div class="card-header" style="background-color:{{ $activity['Color'] }}">
+                    {{ $activity['Asignatura'] }} / {{ $activity['Fecha_Entrega'] }} <br></div> 
+                <div class="card-body card-body-ct">
+                    <h5 class="card-title">{{ $activity['Titulo'] }}</h5>
+                    <p class="card-text truncate"> {{ $activity['Descripcion'] }} </p>
+                    <a href="{{ route('ActivityShow', ['id' => $activity['id']]) }}" class="btn btn-primary">
+                        Ver más</a>
+                </div>
+                </a>
+            </div>
+        @endforeach
+    </div>
+    <script>
+        function filterActivities() {
+            var select = document.getElementById("asigSelect1");
+            var selectedValue = select.options[select.selectedIndex].value;
+    
+            console.log("si entre");
+            console.log(selectedValue);
+            var cards = document.getElementsByClassName("card-ct");
+    
+            for (var i = 0; i < cards.length; i++) {
+                var card = cards[i];
+                var asignatura = card.getAttribute("data-asignatura");
+                console.log(asignatura);
+    
+                if (selectedValue === "0" || asignatura === selectedValue) {
+                    console.log(selectedValue);
+                    card.style.display = "flex";
+                } else {
+                    console.log("si entre3");
+                    card.style.display = "none";
+                }
+            }
+        }
+    </script>
+
+    
 </main>

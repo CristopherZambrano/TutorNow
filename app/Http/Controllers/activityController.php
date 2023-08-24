@@ -21,8 +21,9 @@ class activityController extends Controller
         $activities = [];
         $activitys = DB::table('activity')
             ->where('id_person', '=', $person->id)
-            ->where('deadline', '>', Carbon::today())
+            //->where('deadline', '>', Carbon::today())
             ->whereIn('status', ['Pendiente', 'En proceso'])
+            ->orderBy('deadline', 'asc')
             ->get();
         foreach ($activitys as $activity) {
             $signature = signature::where('id', $activity->id_signature)->first();
