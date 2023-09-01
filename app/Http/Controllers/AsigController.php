@@ -12,6 +12,7 @@ class AsigController extends Controller
     public function RegisterAsig(Request $request)
     {
         try {
+
             $person = $request->session()->get('persona');
             $signature = new signature();
             // $person = $request->session()->get('persona');
@@ -29,7 +30,17 @@ class AsigController extends Controller
     }
 
     public function listAsig(Request $request){
+        $hidden = [];
+
         $person = $request->session()->get('persona');
+        if(($person->idTypeUser)===2){
+            $hidden[]=[
+            'teacher' => 'hidden',
+            'student' => '',
+            ];
+        }else{
+            $hidden[]=[ 'teacher' => '', 'student' => 'hidden'];
+        }
         $count = 1;
         $signatures = [];
         $asignatura = DB::table('signature')
@@ -45,7 +56,7 @@ class AsigController extends Controller
             ];
             $count++;
         }
-        return view('Asig', compact('signatures'));
+        return view('Asig', ['signatures' => $signatures,'hidden' => $hidden]);
     }
 
     public function deleteSubject($id){

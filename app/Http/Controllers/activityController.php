@@ -16,8 +16,11 @@ class activityController extends Controller
 {
     public function listActivityPending(Request $request)
     {
-        $contador = 0;
+        $hidden = '';
         $person = $request->session()->get('persona');
+        if(($person->idTypeUser)===2){
+            $hidden = 'hidden';
+        }
         $activities = [];
         $activitys = DB::table('activity')
             ->where('id_person', '=', $person->id)
@@ -43,6 +46,7 @@ class activityController extends Controller
         return view('Home', [
             'activities' => $activities,
             'signature' => $signature,
+            'Hidden' => $hidden
         ]);
     }
 
@@ -75,6 +79,11 @@ class activityController extends Controller
         $activity = activity::findOrFail($id);
         $signature = signature::findOrFail($activity->id_signature);
         $youtube = new Youtube(['key' => env('YOUTUBE_API_KEY')]);
+        $hidden = '';
+        $person = session()->get('persona');
+        if(($person->idTypeUser)===2){
+            $hidden = 'hidden';
+        }
 
         if (isset($activity->title)) {
             $videos = $youtube->searchVideos($activity->title, 3);
@@ -120,6 +129,7 @@ class activityController extends Controller
             'signas' => $signas,
             'PDFs' => $PDFs,
             'Diapositivas' => $Diapositivas,
+            'Hidden' => $hidden
         ]);
     }
 

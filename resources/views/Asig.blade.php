@@ -1,9 +1,18 @@
 @include('layouts.Assets_P')
 <main>
     <div class="container">
-        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#asigModal">
-            <x-bi-plus-circle-fill /> Nuevo
-        </button>
+        @foreach ($hidden as $hid)
+            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#asigModal"
+                {{ $hid['teacher'] }}>
+                <x-bi-plus-circle-fill /> Nuevo
+            </button>
+            <div class="col text-end">
+                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                    data-bs-target="#ingresoClase" {{ $hid['student'] }}>
+                    <x-bi-plus-circle-fill /> Nuevo
+                </button>
+            </div>
+        @endforeach
         <form method="POST" action="{{ route('RegistrarAsig') }}">
             @csrf
             <!-- Modal -->
@@ -36,6 +45,31 @@
                                     <input type="color" class="form-control form-control-color" id="inputColor"
                                         value="#563d7c" title="Choose your color" name="inputColor">
                                 </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form method="POST" action="#">
+            @csrf
+            <div class="modal fade" id="ingresoClase" tabindex="-1" aria-labelledby="ingresoClaseLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="ingresoClaseLabel">Nueva Asignatura</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="titleloImput" class="form-label">Codigo</label>
+                                <input name="titleImput" class="form-control" id="titleImput" require>
                             </div>
                         </div>
                         <div class="modal-footer">

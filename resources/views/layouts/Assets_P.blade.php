@@ -32,9 +32,6 @@
                             <a class="nav-link active" aria-current="page" href="/Home"><x-bi-house-heart-fill /> Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><x-bi-calendar-check-fill /> Calendario</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="{{ asset('subject') }}"><x-bi-calendar-check-fill /> Asignaturas</a>
                         </li>
                         <li class="nav-item dropdown">

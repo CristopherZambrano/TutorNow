@@ -6,7 +6,7 @@
                 <h3>{{ $activity->title }}</h1>
             </div>
 
-            <div class="col text-end">
+            <div class="col text-end" {{ $Hidden }}>
                 <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
                     data-bs-target="#editActivity">
                     <x-bi-pencil-square /> Editar

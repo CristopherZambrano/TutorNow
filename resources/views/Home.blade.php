@@ -7,7 +7,7 @@
             </div>
             <div class="col text-end">
                 <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                    data-bs-target="#addActivities">
+                    data-bs-target="#addActivities" {{ $Hidden }}>
                     <x-bi-plus-circle-fill /> Nuevo
                 </button>
             </div>
