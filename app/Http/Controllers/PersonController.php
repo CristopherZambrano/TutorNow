@@ -33,6 +33,7 @@ class PersonController extends Controller
         $person->lastName = $request->input('lastName');
         $person->user = $request->input('email');
         $person->password = $request->input('password');
+        $person->idTypeUser = 2;
 
         $exist = person::where('user', $person->user)->first();
         if($exist){
