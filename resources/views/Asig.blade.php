@@ -20,27 +20,27 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="asigModalLabel">Nueva Asignatura</h1>
+                            <h1 class="modal-title fs-5" id="asigModalLabel">Nueva Clase</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="row mb-3">
-                                <label for="inputNombre" class="col-sm-2 col-form-label">Materia</label>
+                                <label for="inputNombre" class="col-sm-2 col-form-label">Nombre: </label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="inputNombre" name="inputNombre"
                                         required>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="inputProfesor" class="col-sm-2 col-form-label">Profesor</label>
+                                <label for="inputCodigo" class="col-sm-2 col-form-label">Código: </label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="inputProfesor" name="inputProfesor"
+                                    <input type="text" class="form-control" id="inputCodigo" name="inputCodigo"
                                         required>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="inputColor" class="col-sm-2 col-form-label">Color</label>
+                                <label for="inputColor" class="col-sm-2 col-form-label">Color: </label>
                                 <div class="col-sm-10">
                                     <input type="color" class="form-control form-control-color" id="inputColor"
                                         value="#563d7c" title="Choose your color" name="inputColor">
@@ -62,7 +62,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="ingresoClaseLabel">Nueva Asignatura</h1>
+                            <h1 class="modal-title fs-5" id="ingresoClaseLabel">Nueva Clase</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
@@ -96,8 +96,8 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Materia</th>
-                    <th scope="col">Profesor</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Código</th>
                     <th scope="col">Color</th>
                     <th scope="col">Acciones</th>
                 </tr>
@@ -106,8 +106,8 @@
                 @foreach ($signatures as $signature)
                     <tr>
                         <th scope="row">{{ $signature['num'] }}</th>
-                        <td>{{ $signature['materia'] }}</td>
-                        <td>{{ $signature['profesor'] }}</td>
+                        <td>{{ $signature['nombre'] }}</td>
+                        <td>{{ $signature['codigo'] }}</td>
                         <td>
                             <div class="color-square" style="background-color: {{ $signature['Color'] }};"></div>
                         </td>

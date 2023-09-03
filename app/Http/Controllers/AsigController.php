@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\lesson;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\person;
-use App\Models\signature;
 use Illuminate\Support\Str;
 
 class AsigController extends Controller
@@ -17,12 +15,12 @@ class AsigController extends Controller
             $person = $request->session()->get('persona');
             $signature = new lesson();
             $signature->name = $request->input('inputNombre');
-            $signature->code = Str::random(6);
+            $signature->code = $request->input('inputCodigo') . Str::random(6);
             $signature->color = $request->input('inputColor');
             $signature->id_persons = $person->id;
 
             $signature->save();
-            return redirect()->route('subject')->with('success', 'Nueva asignatura registrada');
+            return redirect()->route('subject')->with('success', 'Nueva Clase registrada');
         } catch (\Exception $e) {
             dd($e->getMessage());
         }
@@ -49,8 +47,8 @@ class AsigController extends Controller
             $signatures []= [
                 'num'=> $count,
                 'idAsig'=> $signature->id,
-                'materia' => $signature->name,
-                'profesor' => $signature->code,
+                'nombre' => $signature->name,
+                'codigo' => $signature->code,
                 'Color' =>$signature->color,
             ];
             $count++;
