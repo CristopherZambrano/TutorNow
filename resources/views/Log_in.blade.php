@@ -1,6 +1,6 @@
 @include('layouts.Assets_LR')
 <main>
-    <form method="POST" action="{{route('logIn')}}">
+    <form method="POST" action="{{ route('logIn') }}">
         
         @csrf
 
