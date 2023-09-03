@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'https://tutor-now-4fbb17a4759c.herokuapp.com'),
 
     'asset_url' => env('ASSET_URL'),
 
