@@ -14,22 +14,30 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/ 
+*/
+
+Route::middleware(['web'])->group(function () {
+    Route::get('/', function () {
+        return view('Log_in');
+    })->name('Genesis');
+
+    Route::post('logIn', [PersonController::class, 'checkUserExists'])->name('logIn');
+
+    Route::post('register', [PersonController::class, 'RegisterNewUser'])->name('register');
+
+    Route::get('/registro', function () {
+        return view('Register');
+    });
+});
 
 //Route::get('/', function () { return view('Log_in'); });
 
-Route::get('/', function(){return view('Log_in');})->name('Genesis');
 
-Route::post('logIn', [PersonController::class, 'checkUserExists'])->name('logIn');
-
-Route::post('register', [PersonController::class, 'RegisterNewUser'])->name('register');
-
-Route::get('/registro', function () { return view('Register'); });
 
 
 /*Avtividades */
 
-Route::get('Home', [activityController::class,'listActivityPending'])->name('Home');
+Route::get('Home', [activityController::class, 'listActivityPending'])->name('Home');
 
 //registrar actividad
 
@@ -45,14 +53,14 @@ Route::post('updateAct/{id}', [activityController::class, 'updateActivity'])->na
 
 //eliminar actividad
 
-Route::get('deleteAct/{id}', [activityController::class, 'deleteActivity'])->name('delActividad'); 
+Route::get('deleteAct/{id}', [activityController::class, 'deleteActivity'])->name('delActividad');
 
 
 /*Asignaturas */
 
 Route::post('RegistrarAsig', [AsigController::class, 'RegisterAsig'])->name('RegistrarAsig');
 
-Route::get('subject', [AsigController::class,'listAsig'])->name('subject');
+Route::get('subject', [AsigController::class, 'listAsig'])->name('subject');
 
 //actualizar actividad
 
@@ -60,4 +68,4 @@ Route::get('subject', [AsigController::class,'listAsig'])->name('subject');
 
 //eliminar actividad
 
-Route::get('deleteAsig/{id}', [AsigController::class, 'deleteSubject'])->name('delAsignatura'); 
+Route::get('deleteAsig/{id}', [AsigController::class, 'deleteSubject'])->name('delAsignatura');
