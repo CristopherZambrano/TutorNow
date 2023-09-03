@@ -4,6 +4,7 @@ use App\Http\Controllers\activityController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\AsigController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,3 +70,6 @@ Route::get('subject', [AsigController::class, 'listAsig'])->name('subject');
 //eliminar actividad
 
 Route::get('deleteAsig/{id}', [AsigController::class, 'deleteSubject'])->name('delAsignatura');
+
+
+URL::forceScheme('https');
