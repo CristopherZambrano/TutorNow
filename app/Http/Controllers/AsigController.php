@@ -2,25 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\lesson;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\person;
 use App\Models\signature;
+use Illuminate\Support\Str;
 
 class AsigController extends Controller
 {
     public function RegisterAsig(Request $request)
     {
         try {
-
             $person = $request->session()->get('persona');
-            $signature = new signature();
-            // $person = $request->session()->get('persona');
-
+            $signature = new lesson();
             $signature->name = $request->input('inputNombre');
-            $signature->teacher = $request->input('inputProfesor');
+            $signature->code = Str::random(6);
             $signature->color = $request->input('inputColor');
-            $signature->id_person = $person->id;
+            $signature->id_persons = $person->id;
 
             $signature->save();
             return redirect()->route('subject')->with('success', 'Nueva asignatura registrada');
@@ -43,15 +42,15 @@ class AsigController extends Controller
         }
         $count = 1;
         $signatures = [];
-        $asignatura = DB::table('signature')
-            ->where('id_person', $person->id)
+        $asignatura = DB::table('lessons')
+            ->where('id_persons', $person->id)
             ->get();
         foreach($asignatura as $signature){
             $signatures []= [
                 'num'=> $count,
                 'idAsig'=> $signature->id,
                 'materia' => $signature->name,
-                'profesor' => $signature->teacher,
+                'profesor' => $signature->code,
                 'Color' =>$signature->color,
             ];
             $count++;
@@ -60,7 +59,7 @@ class AsigController extends Controller
     }
 
     public function deleteSubject($id){
-        $signature = signature::find($id);
+        $signature = lesson::find($id);
 
         if ($signature) {
             $signature->delete();

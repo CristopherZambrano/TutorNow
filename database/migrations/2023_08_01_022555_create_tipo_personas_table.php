@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -11,14 +12,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('persons',function(Blueprint $table){
+        Schema::create('tipo_personas', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('lastName');
-            $table->string('user')->unique();
-            $table->string('password');
+            $table->string('typeUser');
             $table->timestamps();
         });
+
+        DB::table('tipo_personas')->insert([
+            ['typeUser' => 'Student'],
+            ['typeUser' => 'Teacher'],
+            ['typeUser' => 'Admin'],
+        ]);
     }
 
     /**
@@ -26,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('persons');
+        Schema::dropIfExists('tipo_personas');
     }
 };

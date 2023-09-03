@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('activity', function (Blueprint $table) {
-            $table->string('title')->nullable()->after('id_person');
+        Schema::create('lessons', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('code');
+            $table->string('color');
+            $table->foreignId('id_persons')->constrained('persons')->onDelete('restrict');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('activity', function (Blueprint $table) {
-            $table->dropColumn('title');
-        });
+        Schema::dropIfExists('lessons');
     }
 };

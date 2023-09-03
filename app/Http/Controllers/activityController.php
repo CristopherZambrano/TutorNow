@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\activity;
 use App\Models\person;
-use App\Models\signature;
+use App\Models\lesson;
 use Carbon\Carbon;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -18,23 +18,34 @@ class activityController extends Controller
     {
         $hidden = '';
         $person = $request->session()->get('persona');
-        if(($person->idTypeUser)===2){
+        if(($person->idTipoUser)===2){
             $hidden = 'hidden';
         }
         $activities = [];
-        $activitys = DB::table('activity')
-            ->where('id_person', '=', $person->id)
+        $activitys = DB::table('persons')
+            ->join('lessons', 'persons.id', '=', 'lessons.id_persons')
+            ->join('activity', 'lessons.id', '=', 'activity.id_lessons')
+            ->select('activity.id as activity_id',
+                     'lessons.id as lesson_id',
+                     'lessons.color',
+                     'lessons.name',
+                     'activity.title',
+                     'activity.description',
+                     'activity.deadline',
+                     'activity.score',
+                     'activity.status')
+            ->where('persons.id', '=', $person->id)
             //->where('deadline', '>', Carbon::today())
             ->whereIn('status', ['Pendiente', 'En proceso'])
             ->orderBy('deadline', 'asc')
             ->get();
         foreach ($activitys as $activity) {
-            $signature = signature::where('id', $activity->id_signature)->first();
+            //$signature = signature::where('id', $activity->id_signature)->first();
             $activities[] = [
-                'id' => $activity->id,
-                'idAsignatura' => $activity->id_signature,
-                'Color' => $signature->color,
-                'Asignatura' => $signature->name,
+                'id' => $activity->activity_id,
+                'idAsignatura' => $activity->lesson_id,
+                'Color' => $activity->color,
+                'Asignatura' => $activity->name,
                 'Titulo' => $activity->title,
                 'Descripcion' => $activity->description,
                 'Fecha_Entrega' => $activity->deadline,
@@ -42,7 +53,7 @@ class activityController extends Controller
                 'Estado' => $activity->status,
             ];
         }
-        $signature = Signature::where('id_person', $person->id)->get();
+        $signature = lesson::where('id_persons', '=', $person->id)->get();
         return view('Home', [
             'activities' => $activities,
             'signature' => $signature,
@@ -55,12 +66,10 @@ class activityController extends Controller
         try {
             $activity = new activity();
             $person = $request->session()->get('persona');
-
-            $activity->id_signature = $request->input('asigSelect');
-            $activity->id_person = $person->id;
+            $activity->title = $request->input('titleImput');
             $activity->description = $request->input('descImput');
             $activity->deadline = $request->input('dateImput');
-            $activity->title = $request->input('titleImput');
+            $activity->id_lessons = $request->input('asigSelect');
             $activity->status = 'Pendiente';
 
             if ($activity->deadline < Carbon::today()) {
@@ -77,14 +86,13 @@ class activityController extends Controller
     public function Show($id)
     {
         $activity = activity::findOrFail($id);
-        $signature = signature::findOrFail($activity->id_signature);
+        $signature = lesson::findOrFail($activity->id_lessons);
         $youtube = new Youtube(['key' => env('YOUTUBE_API_KEY')]);
         $hidden = '';
         $person = session()->get('persona');
         if(($person->idTypeUser)===2){
             $hidden = 'hidden';
         }
-
         if (isset($activity->title)) {
             $videos = $youtube->searchVideos($activity->title, 3);
             $query = $activity->title;
@@ -120,7 +128,7 @@ class activityController extends Controller
         ]);
         $Diapositivas = json_decode($response->getBody(),true);
 
-        $signas = Signature::where('id_person', $activity->id_person)->get();
+        $signas = lesson::where('id_persons', $person->id)->get();
 
         return view('ActivityDetails', [
             'activity' => $activity,

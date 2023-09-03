@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('activity', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_signature')->constrained('signature')->onDelete('restrict');
-            $table->foreignId('id_person')->constrained('persons')->onDelete('restrict');
-            $table->string('description');
+            $table->foreignId('id_lessons')->constrained('lessons')->onDelete('restrict');
+            $table->string('title');
+            $table->text('description');
             $table->date('deadline');
             $table->float('score')->nullable();
             $table->string('status')->default('Pendiente');

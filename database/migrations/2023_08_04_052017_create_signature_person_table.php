@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('signature', function (Blueprint $table) {
-            $table->string('color')->nullable(); 
+        Schema::create('studentList', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('id_person')->constrained('persons')->onDelete('restrict');
+            $table->foreignId('id_class')->constrained('lessons')->onDelete('restrict');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('signature', function (Blueprint $table) {
-            $table->dropColumn('color');
-        });
+        Schema::dropIfExists('studentList');
     }
 };

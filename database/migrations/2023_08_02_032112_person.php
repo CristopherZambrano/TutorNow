@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tipo_personas', function (Blueprint $table) {
+        Schema::create('persons',function(Blueprint $table){
             $table->id();
-            $table->string('typeUser');
+            $table->string('name');
+            $table->string('lastName');
+            $table->string('user')->unique();
+            $table->string('password');
+            $table->foreignId('idTipoUser')->constrained('tipo_personas')->onDelete('restrict');
             $table->timestamps();
         });
     }
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tipo_personas');
+        Schema::dropIfExists('persons');
     }
 };

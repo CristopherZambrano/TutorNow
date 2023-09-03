@@ -57,7 +57,7 @@
                                 </div>
                                 <div class="col">
                                     <label for="asigSelect" class="form-label">Asignatura</label>
-                                    <select class="form-select" aria-label="Default select example" name="asigSelect"
+                                    <select class="form-select" aria-label="Default select example" name="asigSelect" id="lessonId"
                                         require>
                                         <option selected disabled>Seleccione</option>
                                         @foreach ($signature as $signa)
