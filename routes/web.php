@@ -4,7 +4,6 @@ use App\Http\Controllers\activityController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\AsigController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,8 +31,6 @@ Route::middleware(['web'])->group(function () {
 
 
 //Route::get('/', function () { return view('Log_in'); });
-
-
 
 
 /*Avtividades */
@@ -78,4 +75,5 @@ Route::get('deleteAsig/{id}', [AsigController::class, 'deleteSubject'])->name('d
 Route::post('IngresarClase', [AsigController::class, 'RegisterClass'])->name('IngresarClase');
 
 });
-URL::forceScheme('https');
+
+//URL::forceScheme('https');

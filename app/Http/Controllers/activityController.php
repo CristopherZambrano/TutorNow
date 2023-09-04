@@ -24,38 +24,40 @@ class activityController extends Controller
                 ->where('id_person', $person->id)
                 ->join('lessons', 'studentList.id_class', '=', 'lessons.id')
                 ->join('activity', 'lessons.id', '=', 'activity.id_lessons')
-                ->select('activity.id as activity_id',
-                'lessons.id as lesson_id',
-                'lessons.color',
-                'lessons.name',
-                'activity.title',
-                'activity.description',
-                'activity.deadline',
-                'activity.score',
-                'activity.status')
+                ->select(
+                    'activity.id as activity_id',
+                    'lessons.id as lesson_id',
+                    'lessons.color',
+                    'lessons.name',
+                    'activity.title',
+                    'activity.description',
+                    'activity.deadline',
+                    'activity.score',
+                    'activity.status'
+                )
                 ->get();
-        }else{
+        } else {
             $activitys = DB::table('persons')
-            ->join('lessons', 'persons.id', '=', 'lessons.id_persons')
-            ->join('activity', 'lessons.id', '=', 'activity.id_lessons')
-            ->select(
-                'activity.id as activity_id',
-                'lessons.id as lesson_id',
-                'lessons.color',
-                'lessons.name',
-                'activity.title',
-                'activity.description',
-                'activity.deadline',
-                'activity.score',
-                'activity.status'
-            )
-            ->where('persons.id', '=', $person->id)
-            //->where('deadline', '>', Carbon::today())
-            ->whereIn('status', ['Pendiente', 'En proceso'])
-            ->orderBy('deadline', 'asc')
-            ->get();
+                ->join('lessons', 'persons.id', '=', 'lessons.id_persons')
+                ->join('activity', 'lessons.id', '=', 'activity.id_lessons')
+                ->select(
+                    'activity.id as activity_id',
+                    'lessons.id as lesson_id',
+                    'lessons.color',
+                    'lessons.name',
+                    'activity.title',
+                    'activity.description',
+                    'activity.deadline',
+                    'activity.score',
+                    'activity.status'
+                )
+                ->where('persons.id', '=', $person->id)
+                //->where('deadline', '>', Carbon::today())
+                ->whereIn('status', ['Pendiente', 'En proceso'])
+                ->orderBy('deadline', 'asc')
+                ->get();
         }
-         
+
         foreach ($activitys as $activity) {
             //$signature = signature::where('id', $activity->id_signature)->first();
             $activities[] = [
@@ -105,10 +107,12 @@ class activityController extends Controller
         $activity = activity::findOrFail($id);
         $signature = lesson::findOrFail($activity->id_lessons);
         $youtube = new Youtube(['key' => env('YOUTUBE_API_KEY')]);
-        $hidden = '';
+        $hidden = [];
         $person = session()->get('persona');
         if (($person->idTipoUser) === 1) {
-            $hidden = 'hidden';
+            $hidden[] = ['teacher' => 'hidden', 'student' => ''];
+        } else {
+            $hidden[] = ['teacher' => '', 'student' => 'hidden'];
         }
         if (isset($activity->title)) {
             $videos = $youtube->searchVideos($activity->title, 3);
@@ -161,13 +165,24 @@ class activityController extends Controller
     public function updateActivity(Request $request, $id)
     {
         $activity = activity::find($id);
+        $person = session()->get('persona');
         if ($activity) {
-            $activity->id_signature = $request->input('asigSelect');
-            $activity->description = $request->input('descImput');
-            $activity->deadline = $request->input('dateImput');
-            $activity->score = $request->input('scoreInput');
-            $activity->status = $request->input('stateEdit');
-            $activity->title = $request->input('titleImput');
+            if (($person->idTipoUser) === 1) {
+                $Video = $request->has('checkVideo') ? 1 : 0;
+                $checkPdf = $request->has('checkPdf') ? 1 : 0;
+                $checkPpt = $request->has('checkPpt') ? 1 : 0;
+                $activity->status = $request->input('stateEditS');
+                $activity->video = $Video;
+                $activity->pdf = $checkPdf;
+                $activity->ppt = $checkPpt;
+            } else {
+                $activity->id_signature = $request->input('asigSelect');
+                $activity->description = $request->input('descImput');
+                $activity->deadline = $request->input('dateImput');
+                $activity->score = $request->input('scoreInput');
+                $activity->status = $request->input('stateEdit');
+                $activity->title = $request->input('titleImput');
+            }
             $activity->save();
             return redirect()->back()->with('success', 'Actividad actualizada correctamente.');
         } else {

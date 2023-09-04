@@ -126,16 +126,6 @@
                 }
             }
         }
-
-        document.getElementById("miFormulario").addEventListener("submit", function(event) {
-  var campo1Valor = document.getElementById("campo1").value;
-  var campo2Valor = document.getElementById("campo2").value;
-
-  if (campo1Valor.trim() === "") {
-    alert("El campo 1 no puede estar vacío");
-    event.preventDefault(); // Evita que el formulario se envíe
-  }
-});
     </script>
 
     

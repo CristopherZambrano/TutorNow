@@ -5,18 +5,26 @@
             <div class="col">
                 <h3>{{ $activity->title }}</h1>
             </div>
+            @foreach ($Hidden as $hid)
+                <div class="col text-end" {{ $hid['teacher'] }}>
+                    <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
+                        data-bs-target="#editActivity">
+                        <x-bi-pencil-square /> Editar
+                    </button>
+                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                        data-bs-target="#deleteModal">
+                        <x-bi-trash /> Eliminar
+                        {{--  {{ route('ActivityShow', ['id' => $activity['id']]) }} --}}
+                    </button>
 
-            <div class="col text-end" {{ $Hidden }}>
-                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
-                    data-bs-target="#editActivity">
-                    <x-bi-pencil-square /> Editar
-                </button>
-                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                    data-bs-target="#deleteModal">
-                    <x-bi-trash /> Eliminar
-                    {{--  {{ route('ActivityShow', ['id' => $activity['id']]) }} --}}
-                </button>
-            </div>
+                </div>
+                <div class="col text-end" {{ $hid['student'] }}>
+                    <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
+                        data-bs-target="#stateActivity">
+                        <x-bi-pencil-square /> Editar
+                    </button>
+                </div>
+            @endforeach
         </div>
     </div>
     <hr style="background-color: #735AB6">
@@ -42,7 +50,9 @@
                         <dt class="col-sm-3">Estado</dt>
                         <dd class="col-sm-9">{{ $activity->status }}</dd>
                     </div>
+
                 </div>
+
 
             </div>
         </div>
@@ -64,24 +74,6 @@
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="row mb-3">
-                                <div class="col">
-                                    <label for="stateEdit" class="form-label">Estado</label>
-                                    <select class="form-select" aria-label="Default select example" name="stateEdit"
-                                        id="stateEdit" require>
-                                        <option selected value="{{ $activity->status }}">{{ $activity->status }}
-                                        </option>
-                                        <option value="Pendiente">Pendiente</option>
-                                        <option value="En proceso">En proceso</option>
-                                        <option value="Completado">Completado</option>
-                                    </select>
-                                </div>
-                                <div class="col" id="scoreContainer" style="display: none">
-                                    <label for="scoreInput" class="form-label">Calificación</label>
-                                    <input type="number" value="{{ $activity->score }}" name="scoreInput"
-                                        class="form-control" id="scoreInput">
-                                </div>
-                            </div>
                             <div class="mb-3">
                                 <label for="titleImput" class="form-label">Titulo</label>
                                 <input name="titleImput" value="{{ $activity->title }}" class="form-control"
@@ -102,9 +94,11 @@
                                     <label for="asigSelect" class="form-label">Asignatura</label>
                                     <select class="form-select" aria-label="Default select example" name="asigSelect"
                                         require>
-                                        <option selected value="{{ $signature->id }}">{{ $signature->name }}</option>
                                         @foreach ($signas as $signa)
-                                            <option value="{{ $signa['id'] }}">{{ $signa['name'] }}</option>
+                                            <option value="{{ $signa['id'] }}"
+                                                {{ $signature->id == $signa['id'] ? 'selected' : '' }}>
+                                                {{ $signa['name'] }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -141,12 +135,73 @@
                 </div>
             </div>
         </form>
+        <form id="formCheck" method="POST" action="{{ route('ActActividad', ['id' => $activity['id']]) }}">
+            @csrf
+            <div class="modal fade" id="stateActivity" tabindex="-1" aria-labelledby="stateActivityLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="stateEditS" class="form-label">Estado</label>
+                                    <select class="form-select" aria-label="Default select example" name="stateEditS"
+                                        id="stateEditS" require>
+                                        <option value="Pendiente"
+                                            {{ $activity->status == 'Pendiente' ? 'selected' : '' }}>Pendiente</option>
+                                        <option
+                                            value="En proceso"{{ $activity->status == 'En proceso' ? 'selected' : '' }}>
+                                            En proceso</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="checksDocs" class="row mb-3"
+                                {{ $activity->status == 'Pendiente' ? 'hidden' : '' }}>
+                                <div class="col">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox"
+                                            {{ $activity->video == 1 ? 'checked' : '' }} id="checkVideo"
+                                            name="checkVideo">
+                                        <label class="form-check-label" for="checkVideo">
+                                            Video
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox"
+                                            {{ $activity->pdf == 1 ? 'checked' : '' }} id="checkPdf"
+                                            name="checkPdf">
+                                        <label class="form-check-label" for="checkPdf">
+                                            PDFs
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox"
+                                            {{ $activity->ppt == 1 ? 'checked' : '' }} id="checkPpt"
+                                            name="checkPpt">
+                                        <label class="form-check-label" for="checkPpt">
+                                            Ppt
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
     <div class="container" style="text-align: center;">
         <h1>Material relacionado con la actividad</h1>
     </div>
     <br />
-    <div class="container">
+    {{-- <div class="container">
      <div class="accordion container" id="accordionPanelsStayOpenExample">
         <div class="accordion-item">
             <h2 class="accordion-header">
@@ -222,8 +277,8 @@
                 </div>
             </div>
         </div>
-    </div> 
-    <br/>
+    </div>  --}}
+    <br />
 
     <script src="{{ asset('js/colors.js') }}"></script>
 </main>
