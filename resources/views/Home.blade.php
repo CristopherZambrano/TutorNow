@@ -56,7 +56,7 @@
                                         min="{{ Carbon\Carbon::today()->format('D-M-Y') }}">
                                 </div>
                                 <div class="col">
-                                    <label for="asigSelect" class="form-label">Asignatura</label>
+                                    <label for="asigSelect" class="form-label">Clase</label>
                                     <select class="form-select" aria-label="Default select example" name="asigSelect" id="lessonId"
                                         require>
                                         <option selected disabled>Seleccione</option>

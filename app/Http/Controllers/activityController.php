@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\activity;
-use App\Models\person;
 use App\Models\lesson;
 use Carbon\Carbon;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Madcoda\Youtube\Youtube;
