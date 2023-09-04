@@ -43,7 +43,7 @@
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="titleloImput" class="form-label">Titulo</label>
-                                <input name="titleImput" class="form-control" id="titleImput" require>
+                                <input name="titleImput" class="form-control" id="titleImput" required>
                             </div>
                             <div class="mb-3">
                                 <label for="descImput" class="form-label">Descripción</label>
@@ -52,13 +52,13 @@
                             <div class="row">
                                 <div class="col">
                                     <label for="dateImput" class="form-label">Entrega</label>
-                                    <input type="date" name="dateImput" class="form-control" id="dateImput" require
+                                    <input type="date" name="dateImput" class="form-control" id="dateImput" required
                                         min="{{ Carbon\Carbon::today()->format('D-M-Y') }}">
                                 </div>
                                 <div class="col">
                                     <label for="asigSelect" class="form-label">Clase</label>
                                     <select class="form-select" aria-label="Default select example" name="asigSelect" id="lessonId"
-                                        require>
+                                        required>
                                         <option selected disabled>Seleccione</option>
                                         @foreach ($signature as $signa)
                                             <option value="{{ $signa['id'] }}">{{ $signa['name'] }}</option>
@@ -126,6 +126,16 @@
                 }
             }
         }
+
+        document.getElementById("miFormulario").addEventListener("submit", function(event) {
+  var campo1Valor = document.getElementById("campo1").value;
+  var campo2Valor = document.getElementById("campo2").value;
+
+  if (campo1Valor.trim() === "") {
+    alert("El campo 1 no puede estar vacío");
+    event.preventDefault(); // Evita que el formulario se envíe
+  }
+});
     </script>
 
     
