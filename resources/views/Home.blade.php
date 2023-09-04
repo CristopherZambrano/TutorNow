@@ -17,7 +17,7 @@
 
     <div class="container">
         <div class="col-md-2">
-            <label for="asigSelect1" class="form-label">Asignatura</label>
+            <label for="asigSelect1" class="form-label">Clase</label>
             <select class="form-select" aria-label="Default select example" id="asigSelect1" onchange="filterActivities()">
                 <option selected value="0">Todos</option>
                 @foreach ($signature as $signaS)

@@ -15,28 +15,47 @@ class activityController extends Controller
     public function listActivityPending(Request $request)
     {
         $hidden = '';
-        $person = $request->session()->get('persona');
-        if(($person->idTipoUser)===2){
-            $hidden = 'hidden';
-        }
+        $person = $request->Session()->get('persona');
+
         $activities = [];
-        $activitys = DB::table('persons')
+        if (($person->idTipoUser) === 1) {
+            $hidden = 'hidden';
+            $activitys = DB::table('studentList')
+                ->where('id_person', $person->id)
+                ->join('lessons', 'studentList.id_class', '=', 'lessons.id')
+                ->join('activity', 'lessons.id', '=', 'activity.id_lessons')
+                ->select('activity.id as activity_id',
+                'lessons.id as lesson_id',
+                'lessons.color',
+                'lessons.name',
+                'activity.title',
+                'activity.description',
+                'activity.deadline',
+                'activity.score',
+                'activity.status')
+                ->get();
+        }else{
+            $activitys = DB::table('persons')
             ->join('lessons', 'persons.id', '=', 'lessons.id_persons')
             ->join('activity', 'lessons.id', '=', 'activity.id_lessons')
-            ->select('activity.id as activity_id',
-                     'lessons.id as lesson_id',
-                     'lessons.color',
-                     'lessons.name',
-                     'activity.title',
-                     'activity.description',
-                     'activity.deadline',
-                     'activity.score',
-                     'activity.status')
+            ->select(
+                'activity.id as activity_id',
+                'lessons.id as lesson_id',
+                'lessons.color',
+                'lessons.name',
+                'activity.title',
+                'activity.description',
+                'activity.deadline',
+                'activity.score',
+                'activity.status'
+            )
             ->where('persons.id', '=', $person->id)
             //->where('deadline', '>', Carbon::today())
             ->whereIn('status', ['Pendiente', 'En proceso'])
             ->orderBy('deadline', 'asc')
             ->get();
+        }
+         
         foreach ($activitys as $activity) {
             //$signature = signature::where('id', $activity->id_signature)->first();
             $activities[] = [
@@ -88,7 +107,7 @@ class activityController extends Controller
         $youtube = new Youtube(['key' => env('YOUTUBE_API_KEY')]);
         $hidden = '';
         $person = session()->get('persona');
-        if(($person->idTypeUser)===2){
+        if (($person->idTipoUser) === 1) {
             $hidden = 'hidden';
         }
         if (isset($activity->title)) {
@@ -105,7 +124,7 @@ class activityController extends Controller
         }
 
         $client = new Client();
-        $response = $client->get('https://www.googleapis.com/customsearch/v1',[
+        $response = $client->get('https://www.googleapis.com/customsearch/v1', [
             'query' => [
                 'q' => $query,
                 'key' => env('YOUTUBE_API_KEY'),
@@ -113,10 +132,10 @@ class activityController extends Controller
                 'fileType' => 'pdf',
             ],
         ]);
-        $PDFs = json_decode($response->getBody(),true);
+        $PDFs = json_decode($response->getBody(), true);
 
 
-        $response = $client->get('https://www.googleapis.com/customsearch/v1',[
+        $response = $client->get('https://www.googleapis.com/customsearch/v1', [
             'query' => [
                 'q' => $query,
                 'key' => env('YOUTUBE_API_KEY'),
@@ -124,7 +143,7 @@ class activityController extends Controller
                 'fileType' => 'pptx',
             ],
         ]);
-        $Diapositivas = json_decode($response->getBody(),true);
+        $Diapositivas = json_decode($response->getBody(), true);
 
         $signas = lesson::where('id_persons', $person->id)->get();
 

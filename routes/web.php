@@ -29,7 +29,7 @@ Route::middleware(['web'])->group(function () {
     Route::get('/registro', function () {
         return view('Register');
     });
-});
+
 
 //Route::get('/', function () { return view('Log_in'); });
 
@@ -72,4 +72,10 @@ Route::get('subject', [AsigController::class, 'listAsig'])->name('subject');
 Route::get('deleteAsig/{id}', [AsigController::class, 'deleteSubject'])->name('delAsignatura');
 
 
+
+/*Clase Estudiante */
+
+Route::post('IngresarClase', [AsigController::class, 'RegisterClass'])->name('IngresarClase');
+
+});
 URL::forceScheme('https');

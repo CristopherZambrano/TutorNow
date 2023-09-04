@@ -55,7 +55,7 @@
                 </div>
             </div>
         </form>
-        <form method="POST" action="#">
+        <form method="POST" action="{{ route('IngresarClase') }}">
             @csrf
             <div class="modal fade" id="ingresoClase" tabindex="-1" aria-labelledby="ingresoClaseLabel"
                 aria-hidden="true">
@@ -68,8 +68,8 @@
                         </div>
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label for="titleloImput" class="form-label">Codigo</label>
-                                <input name="titleImput" class="form-control" id="titleImput" require>
+                                <label for="imputCode" class="form-label">Codigo</label>
+                                <input name="imputCode" class="form-control" id="imputCode" require>
                             </div>
                         </div>
                         <div class="modal-footer">
