@@ -17,8 +17,6 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->date('deadline');
-            $table->float('score')->nullable();
-            $table->string('status')->default('Pendiente');
             $table->timestamps();
         });
     }

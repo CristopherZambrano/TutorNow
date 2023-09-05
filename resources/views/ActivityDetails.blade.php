@@ -1,5 +1,10 @@
 @include('layouts.Assets_P')
 <main>
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     <div class="container">
         <div class="row">
             <div class="col">
@@ -48,12 +53,15 @@
 
                     <div class="col">
                         <dt class="col-sm-3">Estado</dt>
-                        <dd class="col-sm-9">{{ $activity->status }}</dd>
+                        <dd class="col-sm-9">{{ $detalleActivity->status }}</dd>
                     </div>
 
                 </div>
-
-
+                <form method="POST" action="{{ route('uploadFile', ['id' => $activity->id]) }}" enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" name="archivo">
+                    <input type="submit" value="Subir Archivo">
+                </form>
             </div>
         </div>
     </div>

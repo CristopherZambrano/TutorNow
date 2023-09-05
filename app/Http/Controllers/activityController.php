@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\activity;
+use App\Models\detailsActivity;
 use App\Models\lesson;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -24,6 +25,7 @@ class activityController extends Controller
                 ->where('id_person', $person->id)
                 ->join('lessons', 'studentList.id_class', '=', 'lessons.id')
                 ->join('activity', 'lessons.id', '=', 'activity.id_lessons')
+                //->join('activity_details', 'activity.id', '=', 'activity_details.idActivity')
                 ->select(
                     'activity.id as activity_id',
                     'lessons.id as lesson_id',
@@ -32,14 +34,15 @@ class activityController extends Controller
                     'activity.title',
                     'activity.description',
                     'activity.deadline',
-                    'activity.score',
-                    'activity.status'
+                //    'activity_details.score',
+                //    'activity_details.status'
                 )
                 ->get();
         } else {
             $activitys = DB::table('persons')
                 ->join('lessons', 'persons.id', '=', 'lessons.id_persons')
                 ->join('activity', 'lessons.id', '=', 'activity.id_lessons')
+                //->join('activity_details', 'activity.id', '=', 'activity_details.idActivity')
                 ->select(
                     'activity.id as activity_id',
                     'lessons.id as lesson_id',
@@ -48,12 +51,12 @@ class activityController extends Controller
                     'activity.title',
                     'activity.description',
                     'activity.deadline',
-                    'activity.score',
-                    'activity.status'
+                //   'activity_details.score',
+                //    'activity_details.status'
                 )
                 ->where('persons.id', '=', $person->id)
-                //->where('deadline', '>', Carbon::today())
-                ->whereIn('status', ['Pendiente', 'En proceso'])
+                ->where('deadline', '>', Carbon::today())
+                //->whereIn('status', ['Pendiente', 'En proceso'])
                 ->orderBy('deadline', 'asc')
                 ->get();
         }
@@ -68,8 +71,8 @@ class activityController extends Controller
                 'Titulo' => $activity->title,
                 'Descripcion' => $activity->description,
                 'Fecha_Entrega' => $activity->deadline,
-                'Puntaje' => $activity->score,
-                'Estado' => $activity->status,
+                //'Puntaje' => $activity->score,
+                //'Estado' => $activity->status,
             ];
         }
         $signature = lesson::where('id_persons', '=', $person->id)->get();
@@ -89,7 +92,6 @@ class activityController extends Controller
             $activity->description = $request->input('descImput');
             $activity->deadline = $request->input('dateImput');
             $activity->id_lessons = $request->input('asigSelect');
-            $activity->status = 'Pendiente';
 
             if ($activity->deadline < Carbon::today()) {
                 return redirect()->route('Home')->with('error', 'Fecha no permitida');
@@ -104,11 +106,17 @@ class activityController extends Controller
 
     public function Show($id)
     {
+        $person = session()->get('persona');
         $activity = activity::findOrFail($id);
+        $detalleActivity = detailsActivity::where('idActivity', $id)
+                                            ->where('idPersons', $person->id);
+        if(isset($detalleActivity)){
+            $detalleActivity->status = 'Pendiente';
+        }
         $signature = lesson::findOrFail($activity->id_lessons);
         $youtube = new Youtube(['key' => env('YOUTUBE_API_KEY')]);
         $hidden = [];
-        $person = session()->get('persona');
+        
         if (($person->idTipoUser) === 1) {
             $hidden[] = ['teacher' => 'hidden', 'student' => ''];
         } else {
@@ -153,6 +161,7 @@ class activityController extends Controller
 
         return view('ActivityDetails', [
             'activity' => $activity,
+            'detalleActivity' => $detalleActivity,
             'videos' => $videos,
             'signature' => $signature,
             'signas' => $signas,
@@ -160,6 +169,30 @@ class activityController extends Controller
             'Diapositivas' => $Diapositivas,
             'Hidden' => $hidden
         ]);
+    }
+
+    public function uploadFile(Request $request, $id){
+        $person = session()->get('persona');
+        $request->validate([
+            'archivo' => 'required|mimes:pdf,docx|max:2048', 
+        ]);
+        $archivo = $request->file('archivo');
+        $nombreArchivo = time() . '_' . $archivo->getClientOriginalName();
+        $archivo->move(public_path('uploads'), $nombreArchivo);
+
+        /*detailsActivity::create([
+            'idActivity'=>$id,
+            'idPersons'=> $person->id,
+            'status'=> 'Enviado',
+            'archivo' => $nombreArchivo,]);*/
+        $detalle = new detailsActivity;
+        $detalle->idActivity = $id;
+        $detalle->idPersons = $person->id;
+        $detalle->status = 'Enviado';
+        $detalle->archivo = $nombreArchivo;
+        $detalle->saveOrFail();
+
+        return redirect()->back()->with('success', 'Archivo subido correctamente.');
     }
 
     public function updateActivity(Request $request, $id)
@@ -179,8 +212,6 @@ class activityController extends Controller
                 $activity->id_signature = $request->input('asigSelect');
                 $activity->description = $request->input('descImput');
                 $activity->deadline = $request->input('dateImput');
-                $activity->score = $request->input('scoreInput');
-                $activity->status = $request->input('stateEdit');
                 $activity->title = $request->input('titleImput');
             $activity->save();
             return redirect()->back()->with('success', 'Actividad actualizada correctamente.');

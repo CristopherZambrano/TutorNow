@@ -53,6 +53,10 @@ Route::post('updateAct/{id}', [activityController::class, 'updateActivity'])->na
 
 Route::get('deleteAct/{id}', [activityController::class, 'deleteActivity'])->name('delActividad');
 
+//subir Actividad
+
+Route::post('uploadfile/{id}', [activityController::class, 'uploadFile'])->name('uploadFile');
+
 
 /*Asignaturas */
 
