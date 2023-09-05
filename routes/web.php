@@ -4,6 +4,7 @@ use App\Http\Controllers\activityController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\AsigController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,4 +81,4 @@ Route::post('IngresarClase', [AsigController::class, 'RegisterClass'])->name('In
 
 });
 
-//URL::forceScheme('https');
+URL::forceScheme('https');
