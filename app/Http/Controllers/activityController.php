@@ -209,7 +209,7 @@ class activityController extends Controller
                 $activity->pdf = $checkPdf;
                 $activity->ppt = $checkPpt;
             } else { */
-                $activity->id_signature = $request->input('asigSelect');
+                $activity->id_lessons = $request->input('asigSelect');
                 $activity->description = $request->input('descImput');
                 $activity->deadline = $request->input('dateImput');
                 $activity->title = $request->input('titleImput');
