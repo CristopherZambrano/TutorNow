@@ -55,12 +55,17 @@
                         <dt class="col-sm-3">Estado</dt>
                         <dd class="col-sm-9">{{ $detalleActivity->status }}</dd>
                     </div>
-
                 </div>
-                <form method="POST" action="{{ route('uploadFile', ['id' => $activity->id]) }}" enctype="multipart/form-data">
+                <br />
+                <form method="POST" action="{{ route('uploadFile', ['id' => $activity->id]) }}"
+                    enctype="multipart/form-data">
                     @csrf
-                    <input type="file" name="archivo">
-                    <input type="submit" value="Subir Archivo">
+                    <div class="mb-3">
+                        <input class="form-control" type="file" name="archivo">
+                    </div>
+                    <div class="text-end">
+                        <input class="btn btn-outline-secondary" type="submit" value="Subir Archivo">
+                    </div>
                 </form>
             </div>
         </div>
