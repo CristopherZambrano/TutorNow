@@ -214,84 +214,84 @@
         <h1>Material relacionado con la actividad</h1>
     </div>
     <br />
-    {{-- <div class="container">
-     <div class="accordion container" id="accordionPanelsStayOpenExample">
-        <div class="accordion-item">
-            <h2 class="accordion-header">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
-                    aria-controls="panelsStayOpen-collapseOne">
-                    Videos
-                </button>
-            </h2>
-            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse ">
-                <div class="accordion-body">
-                    <div class="ct">
-                        <ul class="video-list">
-                            @foreach ($videos as $video)
-                                <li>
-                                    <iframe width="560" height="315"
-                                        src="https://www.youtube.com/embed/{{ $video->id->videoId }}" frameborder="0"
-                                        allowfullscreen></iframe>
-                                </li>
-                            @endforeach
-                        </ul>
+    <div class="container">
+        <div class="accordion container" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                        aria-controls="panelsStayOpen-collapseOne">
+                        Videos
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse ">
+                    <div class="accordion-body">
+                        <div class="ct">
+                            <ul class="video-list">
+                                @foreach ($videos as $video)
+                                    <li>
+                                        <iframe width="560" height="315"
+                                            src="https://www.youtube.com/embed/{{ $video->id->videoId }}"
+                                            frameborder="0" allowfullscreen></iframe>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                        aria-controls="panelsStayOpen-collapseTwo">
+                        PDFs
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        <div>
+                            <ul>
+                                @foreach ($PDFs['items'] as $PDF)
+                                    <li>
+                                        <a href="{{ $PDF['link'] }}" target="_blank">
+                                            {{ $PDF['title'] }}
+                                        </a>
+                                        <p>{{ $PDF['snippet'] }}</p>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                        aria-controls="panelsStayOpen-collapseThree">
+                        PowertPoint
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        <div>
+                            <ul>
+                                @foreach ($Diapositivas['items'] as $Diapositiva)
+                                    <li>
+                                        <a href="{{ $Diapositiva['link'] }}" target="_blank">
+                                            {{ $Diapositiva['title'] }}
+                                        </a>
+                                        <p>{{ $Diapositiva['snippet'] }}</p>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
-                    aria-controls="panelsStayOpen-collapseTwo">
-                    PDFs
-                </button>
-            </h2>
-            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
-                <div class="accordion-body">
-                    <div>
-                        <ul>
-                            @foreach ($PDFs['items'] as $PDF)
-                                <li>
-                                    <a href="{{ $PDF['link'] }}" target="_blank">
-                                        {{ $PDF['title'] }}
-                                    </a>
-                                    <p>{{ $PDF['snippet'] }}</p>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
-                    aria-controls="panelsStayOpen-collapseThree">
-                    PowertPoint
-                </button>
-            </h2>
-            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
-                <div class="accordion-body">
-                    <div>
-                        <ul>
-                            @foreach ($Diapositivas['items'] as $Diapositiva)
-                                <li>
-                                    <a href="{{ $Diapositiva['link'] }}" target="_blank">
-                                        {{ $Diapositiva['title'] }}
-                                    </a>
-                                    <p>{{ $Diapositiva['snippet'] }}</p>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>  --}}
-    <br />
+        <br />
 
-    <script src="{{ asset('js/colors.js') }}"></script>
+        <script src="{{ asset('js/colors.js') }}"></script>
 </main>
