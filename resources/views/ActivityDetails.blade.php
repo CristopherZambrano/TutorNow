@@ -135,7 +135,7 @@
                 </div>
             </div>
         </form>
-        <form id="formCheck" method="POST" action="{{ route('ActActividad', ['id' => $activity['id']]) }}">
+        {{-- <form id="formCheck" method="POST" action="{{ route('ActActividad', ['id' => $activity['id']]) }}">
             @csrf
             <div class="modal fade" id="stateActivity" tabindex="-1" aria-labelledby="stateActivityLabel"
                 aria-hidden="true">
@@ -195,7 +195,7 @@
                     </div>
                 </div>
             </div>
-        </form>
+        </form> --}}
     </div>
     <div class="container" style="text-align: center;">
         <h1>Material relacionado con la actividad</h1>

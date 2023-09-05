@@ -167,7 +167,7 @@ class activityController extends Controller
         $activity = activity::find($id);
         $person = session()->get('persona');
         if ($activity) {
-            if (($person->idTipoUser) === 1) {
+/*             if (($person->idTipoUser) === 1) {
                 $Video = $request->has('checkVideo') ? 1 : 0;
                 $checkPdf = $request->has('checkPdf') ? 1 : 0;
                 $checkPpt = $request->has('checkPpt') ? 1 : 0;
@@ -175,14 +175,13 @@ class activityController extends Controller
                 $activity->video = $Video;
                 $activity->pdf = $checkPdf;
                 $activity->ppt = $checkPpt;
-            } else {
+            } else { */
                 $activity->id_signature = $request->input('asigSelect');
                 $activity->description = $request->input('descImput');
                 $activity->deadline = $request->input('dateImput');
                 $activity->score = $request->input('scoreInput');
                 $activity->status = $request->input('stateEdit');
                 $activity->title = $request->input('titleImput');
-            }
             $activity->save();
             return redirect()->back()->with('success', 'Actividad actualizada correctamente.');
         } else {
