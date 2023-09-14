@@ -1,14 +1,15 @@
 @include('layouts.Assets_LR')
 <main>
     <form method="POST" action="{{ route('logIn') }}">
-        
+
         @csrf
 
         <div class="ct">
             <div class="card c-round" style="max-width: 70%;">
                 <div class="row g-0">
                     <div class="col-md-4 ct-imagen">
-                        <img src="https://cdn-icons-png.flaticon.com/512/4697/4697260.png" class="img-fluid rounded-start">
+                        <img src="https://cdn-icons-png.flaticon.com/512/4697/4697260.png"
+                            class="img-fluid rounded-start">
                     </div>
                     <div class="col-12 col-sm-8 body-c">
                         <br />
@@ -16,28 +17,35 @@
                             <h2 class="card-title text-c">Iniciar Sesión</h2>
                             <div class="mb-3">
                                 <label for="inputEmail" class="form-label text-c">Correo</label>
-                                <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Ingrese su correo" name="email">
+                                <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp"
+                                    placeholder="Ingrese su correo" name="email">
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3 input-group">
                                 <label for="inputPassword" class="form-label text-c">Contraseña</label>
-                                <input type="password" class="form-control" id="inputPassword" placeholder="Ingrese su contraseña" name="password">
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="inputPassword"
+                                        placeholder="Ingrese su contraseña" name="password">
+                                    <div class="input-group-text">
+                                        <x-bi-eye id="show-password" style="font-size: 24px; cursor: pointer;" />
+                                    </div>
+                                </div>
                             </div>
                             <div class="container">
-                            <div class="row">
-                                <div class="form-check col-md-auto">
-                                    <input type="checkbox" class="form-check-input" id="check1">
-                                    <label class="form-check-label text-c" for="check1">Recordarme</label>
-                                </div>
-                                <div class="col" style="text-align: end;">
+                                <div class="row">
+                                    <div class="form-check col-md-auto">
+                                        <input type="checkbox" class="form-check-input" id="check1">
+                                        <label class="form-check-label text-c" for="check1">Recordarme</label>
+                                    </div>
+                                    <div class="col" style="text-align: end;">
                                         <a href="#" class="text-c" for="forgot">¿Se te olvido la contraseña?</a>
                                     </div>
-                            </div>
+                                </div>
                             </div>
                             <div class="mb-3" style="text-align: center;">
-                            <br />
-                            <button type="submit" class="btn btn-p" style="text-align: center;">Ingresar</button>
+                                <br />
+                                <button type="submit" class="btn btn-p" style="text-align: center;">Ingresar</button>
                             </div>
-                            
+
                             <div class="mb-3" style="text-align: center;">
                                 <label class="text-c" for="forgot">¿No tienes cuenta?</label>
                                 <a href="registro" class="text-c" for="forgot">Registrate</a>
@@ -48,14 +56,30 @@
                 </div>
             </div>
     </form>
-    @if(session('success'))
+    @if (session('success'))
         <div class="alert alert-success">
-            {{ session('success')}}
+            {{ session('success') }}
         </div>
     @endif
-    @if($errors->any())
+    @if ($errors->any())
         <div class="alert alert-danger">
-            {{$errors->first('error')}}
+            {{ $errors->first('error') }}
         </div>
     @endif
+    <script>
+        var icono = document.getElementById("show-password");
+        var impPass = document.getElementById("inputPassword");
+
+        icono.addEventListener("mouseover", function() {
+            icono.click(); // Simula un clic cuando el mouse pasa por encima
+        });
+        
+        icono.addEventListener("click", function() {
+            if (impPass.type === "password") {
+                impPass.type = "text"; // Cambia el tipo a "text".
+            } else {
+                impPass.type = "password"; // Cambia el tipo a "password" si no lo es.
+            }
+        });
+    </script>
 </main>

@@ -23,12 +23,6 @@
                     </button>
 
                 </div>
-                <div class="col text-end" {{ $hid['student'] }}>
-                    <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
-                        data-bs-target="#stateActivity">
-                        <x-bi-pencil-square /> Editar
-                    </button>
-                </div>
             @endforeach
         </div>
     </div>
@@ -64,9 +58,14 @@
                         <input class="form-control" type="file" name="archivo">
                     </div>
                     <div class="text-end">
-                        <input class="btn btn-outline-secondary" type="submit" value="Subir Archivo">
+                        <input class="btn btn-secondary" type="submit" value="Subir Archivo">
                     </div>
                 </form>
+                
+                    <a type="button" class="btn btn-outline-info" href="{{ route('actualizarcal', ['id' => $activity['id']]) }}">
+                        <x-bi-bookmark-star /> Calificar
+                    </a>
+                
             </div>
         </div>
     </div>
@@ -148,73 +147,12 @@
                 </div>
             </div>
         </form>
-        {{-- <form id="formCheck" method="POST" action="{{ route('ActActividad', ['id' => $activity['id']]) }}">
-            @csrf
-            <div class="modal fade" id="stateActivity" tabindex="-1" aria-labelledby="stateActivityLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <div class="row mb-3">
-                                <div class="col">
-                                    <label for="stateEditS" class="form-label">Estado</label>
-                                    <select class="form-select" aria-label="Default select example" name="stateEditS"
-                                        id="stateEditS" require>
-                                        <option value="Pendiente"
-                                            {{ $activity->status == 'Pendiente' ? 'selected' : '' }}>Pendiente</option>
-                                        <option
-                                            value="En proceso"{{ $activity->status == 'En proceso' ? 'selected' : '' }}>
-                                            En proceso</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div id="checksDocs" class="row mb-3"
-                                {{ $activity->status == 'Pendiente' ? 'hidden' : '' }}>
-                                <div class="col">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox"
-                                            {{ $activity->video == 1 ? 'checked' : '' }} id="checkVideo"
-                                            name="checkVideo">
-                                        <label class="form-check-label" for="checkVideo">
-                                            Video
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox"
-                                            {{ $activity->pdf == 1 ? 'checked' : '' }} id="checkPdf"
-                                            name="checkPdf">
-                                        <label class="form-check-label" for="checkPdf">
-                                            PDFs
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox"
-                                            {{ $activity->ppt == 1 ? 'checked' : '' }} id="checkPpt"
-                                            name="checkPpt">
-                                        <label class="form-check-label" for="checkPpt">
-                                            Ppt
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form> --}}
     </div>
     <div class="container" style="text-align: center;">
         <h1>Material relacionado con la actividad</h1>
     </div>
     <br />
-    <div class="container">
+    {{-- <div class="container">
         <div class="accordion container" id="accordionPanelsStayOpenExample">
             <div class="accordion-item">
                 <h2 class="accordion-header">
@@ -292,6 +230,7 @@
             </div>
         </div>
         <br />
+    </div> --}}
 
-        <script src="{{ asset('js/colors.js') }}"></script>
+    <script src="{{ asset('js/colors.js') }}"></script>
 </main>

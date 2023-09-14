@@ -55,7 +55,7 @@ class activityController extends Controller
                 //    'activity_details.status'
                 )
                 ->where('persons.id', '=', $person->id)
-                ->where('deadline', '>', Carbon::today())
+                //->where('deadline', '>', Carbon::today())
                 //->whereIn('status', ['Pendiente', 'En proceso'])
                 ->orderBy('deadline', 'asc')
                 ->get();

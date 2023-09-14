@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\activityController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\AsigController;
 use Illuminate\Support\Facades\Route;
@@ -58,6 +59,14 @@ Route::get('deleteAct/{id}', [activityController::class, 'deleteActivity'])->nam
 
 Route::post('uploadfile/{id}', [activityController::class, 'uploadFile'])->name('uploadFile');
 
+//calificar actividad
+
+Route::get('calificar/{id}', [StudentController::class, 'tareaStudent'])->name('calificar');
+
+//actualizar calificación
+Route::put('actualizarcal/{id}', [StudentController::class, 'updateScore'])->name('actualizarcal');
+
+
 
 /*Asignaturas */
 
@@ -65,11 +74,11 @@ Route::post('RegistrarAsig', [AsigController::class, 'RegisterAsig'])->name('Reg
 
 Route::get('subject', [AsigController::class, 'listAsig'])->name('subject');
 
-//actualizar actividad
+//Vizualizar clase
 
-//Route::post('updateAsig/{id}', [AsigController::class, 'updateActivity'])->name('ActActividad');
+Route::get('estudiante/{id}', [StudentController::class, 'listStudent'])->name('estudiante');
 
-//eliminar actividad
+//eliminar clase
 
 Route::get('deleteAsig/{id}', [AsigController::class, 'deleteSubject'])->name('delAsignatura');
 

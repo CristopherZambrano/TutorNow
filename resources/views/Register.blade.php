@@ -30,7 +30,13 @@
                     </div>
                     <div class="mb-3">
                         <label for="inputPassword" class="form-label text-c">Contraseña</label>
-                        <input type="password" class="form-control" id="inputPassword" placeholder="Ingrese su contraseña" name="password">
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="inputPassword" placeholder="Ingrese su contraseña" name="password">
+                            <div class="input-group-text">
+                                <x-bi-eye id="show-password" style="font-size: 24px; cursor: pointer;" />
+                            </div>
+                        </div>
+                        
                     </div>
                     <div class="container">
                     </div>
@@ -51,4 +57,20 @@
             {{$errors->first('error')}}
         </div>
     @endif
+    <script>
+        var icono = document.getElementById("show-password");
+        var impPass = document.getElementById("inputPassword");
+
+        icono.addEventListener("mouseover", function() {
+            icono.click(); 
+        });
+        
+        icono.addEventListener("click", function() {
+            if (impPass.type === "password") {
+                impPass.type = "text"; 
+            } else {
+                impPass.type = "password"; 
+            }
+        });
+    </script>
 </main>
