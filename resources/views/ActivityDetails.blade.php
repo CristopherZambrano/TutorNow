@@ -62,7 +62,7 @@
                     </div>
                 </form>
                 
-                    <a type="button" class="btn btn-outline-info" href="{{ route('actualizarcal', ['id' => $activity['id']]) }}">
+                    <a type="button" class="btn btn-outline-info" href="{{ route('calificar', ['id' => $activity['id']]) }}">
                         <x-bi-bookmark-star /> Calificar
                     </a>
                 
