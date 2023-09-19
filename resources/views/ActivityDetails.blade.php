@@ -164,7 +164,7 @@
         <h1>Material relacionado con la actividad</h1>
     </div>
     <br />
-    {{-- <div class="container">
+    <div class="container">
         <div class="accordion container" id="accordionPanelsStayOpenExample">
             <div class="accordion-item">
                 <h2 class="accordion-header">
@@ -242,7 +242,7 @@
             </div>
         </div>
         <br />
-    </div> --}}
+    </div>
 
     <script src="{{ asset('js/colors.js') }}"></script>
 </main>
