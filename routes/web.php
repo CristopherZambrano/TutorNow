@@ -88,6 +88,8 @@ Route::get('deleteAsig/{id}', [AsigController::class, 'deleteSubject'])->name('d
 
 Route::post('IngresarClase', [AsigController::class, 'RegisterClass'])->name('IngresarClase');
 
+Route::get('perfilUser', [PersonController::class,'perfilUser'])->name('perfilUser');
+
 });
 
-URL::forceScheme('https');
+//URL::forceScheme('https');

@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\lesson;
 use App\Models\person;
+use App\Models\studentList;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -43,5 +46,24 @@ class PersonController extends Controller
             $person->save();
             return redirect()->route('Genesis')->with('success', 'Usuario creado exitosamente');        
         }
-    }        
+    }
+    
+    public function perfilUser (){
+        $person = session()->get('persona');
+        $details = [];
+        if($person->idTipoUser === 1){
+            $details['detalle'] = 'Estudiante';
+            $listaMaterias= studentList::where('id_person', $person->id)->count();
+            $details['numeroClases'] = $listaMaterias;
+        }
+        else{
+            $details['detalle'] = 'Docente';
+            $listaMaterias=lesson::where('id_persons',$person->id)->count();
+            $details['numeroClases'] = $listaMaterias;
+        }
+        return view('perfil', [
+                    'persona' => $person,
+                    'detalle' => $details    
+                ]);
+    }
 }
