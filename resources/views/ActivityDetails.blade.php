@@ -19,7 +19,6 @@
                     <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                         data-bs-target="#deleteModal">
                         <x-bi-trash /> Eliminar
-                        {{--  {{ route('ActivityShow', ['id' => $activity['id']]) }} --}}
                     </button>
 
                 </div>
@@ -62,7 +61,7 @@
                     </div>
                 </form>
 
-                <a type="button" class="btn btn-outline-info"
+                <a type="button" class="btn btn-outline-info" {{ $hid['teacher'] }}
                     href="{{ route('calificar', ['id' => $activity['id']]) }}">
                     <x-bi-bookmark-star /> Calificar
                 </a>

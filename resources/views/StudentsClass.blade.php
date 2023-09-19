@@ -36,14 +36,17 @@
                         <td>{{ $estudiantes['nombre'] }}</td>
                         <td>{{ $estudiantes['apellido'] }}</td>
                         <td>
-                            <a type="button" class="btn btn-danger"
-                                href="#">
+                            <a type="button" class="btn btn-danger" href="#">
                                 <x-bi-trash-fill />
                             </a>
                         </td>
                     </tr>
                 @endforeach
+
             </tbody>
         </table>
+        @empty($student)
+            <h3 style="text-align: center">No tiene estudiantes registrados.</h3>
+        @endempty
     </div>
 </main>

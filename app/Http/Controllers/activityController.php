@@ -213,7 +213,7 @@ class activityController extends Controller
 
     public function deleteActivity($id)
     {
-        $act_details = detailsActivity::find($id);
+        $act_details = detailsActivity::where('idActivity', $id);
         $activity = activity::find($id);
 
         if ($act_details) {

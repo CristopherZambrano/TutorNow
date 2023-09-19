@@ -97,8 +97,8 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Código</th>
-                    <th scope="col" {{ $hid['student'] }}>Color</th>
+                    <th scope="col" {{ $hid['teacher'] }}>Código</th>
+                    <th scope="col">Color</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
@@ -107,7 +107,7 @@
                     <tr>
                         <th scope="row">{{ $signature['num'] }}</th>
                         <td>{{ $signature['nombre'] }}</td>
-                        <td {{ $hid['student'] }}>{{ $signature['codigo'] }}</td>
+                        <td {{ $hid['teacher'] }}>{{ $signature['codigo'] }}</td>
                         <td>
                             <div class="color-square" style="background-color: {{ $signature['Color'] }};"></div>
                         </td>
@@ -115,10 +115,10 @@
                             <a type="button" class="btn btn-warning" href="{{ route('estudiante', ['id' => $signature['idAsig']]) }}">
                                 <x-bi-eye-fill />
                             </a> 
-                            <a type="button" class="btn btn-danger"
+                            {{-- <a type="button" class="btn btn-danger"
                                 href="{{ route('delAsignatura', ['id' => $signature['idAsig']]) }}">
                                 <x-bi-trash-fill />
-                            </a>
+                            </a> --}}
                         </td>
                     </tr>
                 @endforeach

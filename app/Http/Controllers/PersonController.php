@@ -11,76 +11,77 @@ use Illuminate\Support\Facades\Redirect;
 
 class PersonController extends Controller
 {
-    public function checkUserExists(Request $request){
+    public function checkUserExists(Request $request)
+    {
         $user = $request->input('email');
         $password = $request->input('password');
         $person = person::where('user', $user)->first();
-        if($person){
-            if($person->password === $password){
+        if ($person) {
+            if ($person->password === $password) {
                 $request->session()->put('persona', $person);
                 return Redirect::route('Home');
-            }
-            else{
+            } else {
                 return redirect()->back()->withErrors(['error' => 'El usuario y la contraseña no son validos']);
             }
-        }
-        else{
+        } else {
             return redirect()->back()->withErrors(['error' => 'El usuario no existe']);
         }
     }
 
-    public function RegisterNewUser(Request $request){
+    public function RegisterNewUser(Request $request)
+    {
         $person = new person();
 
         $person->name = $request->input('name');
         $person->lastName = $request->input('lastName');
         $person->user = $request->input('email');
         $person->password = $request->input('password');
-        $person->idTipoUser = 1;
+        if ($request->input('teacherCh') == '2')
+            $person->idTipoUser = 2;
+        else
+            $person->idTipoUser = 1;
 
         $exist = person::where('user', $person->user)->first();
-        if($exist){
+        if ($exist) {
             return redirect()->back()->withErrors(['error' => 'Este correo electronico pertenece a una cuenta ya creada']);
-        }
-        else{
+        } else {
             $person->save();
-            return redirect()->route('Genesis')->with('success', 'Usuario creado exitosamente');        
+            return redirect()->route('Genesis')->with('success', 'Usuario creado exitosamente');
         }
     }
-    
-    public function perfilUser (){
+
+    public function perfilUser()
+    {
         $person = session()->get('persona');
         $details = [];
-        if($person->idTipoUser === 1){
+        if ($person->idTipoUser === 1) {
             $details['detalle'] = 'Estudiante';
-            $listaMaterias= studentList::where('id_person', $person->id)->count();
+            $listaMaterias = studentList::where('id_person', $person->id)->count();
             $details['numeroClases'] = $listaMaterias;
-        }
-        else{
+        } else {
             $details['detalle'] = 'Docente';
-            $listaMaterias=lesson::where('id_persons',$person->id)->count();
+            $listaMaterias = lesson::where('id_persons', $person->id)->count();
             $details['numeroClases'] = $listaMaterias;
         }
         return view('perfil', [
-                    'persona' => $person,
-                    'detalle' => $details    
-                ]);
+            'persona' => $person,
+            'detalle' => $details
+        ]);
     }
 
-    public function changePassword(Request $request){
+    public function changePassword(Request $request)
+    {
         $person = session()->get('persona');
         $password = $request->input('password');
-        if($request->input('newPasswordV')===$request->input('newPassword')){
-            if($person->password ===$password){
+        if ($request->input('newPasswordV') === $request->input('newPassword')) {
+            if ($person->password === $password) {
                 $person->password = $request->input('newPassword');
                 $person->save();
                 return redirect()->route('perfilUser')->with('success', 'Contraseña cambiada');
-            }
-            else{
+            } else {
                 return redirect()->back()->withErrors(['error' => 'Contraseña incorrecta']);
             }
-        }
-        else{
+        } else {
             return redirect()->back()->withErrors(['error' => 'Las nuevas contraseñas no coinciden']);
         }
     }

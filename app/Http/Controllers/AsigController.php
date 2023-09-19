@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\activity;
+use App\Models\detailsActivity;
 use App\Models\lesson;
 use App\Models\studentList;
 use Illuminate\Http\Request;
@@ -10,7 +12,7 @@ use Illuminate\Support\Str;
 
 class AsigController extends Controller
 {
-    
+
     public function RegisterAsig(Request $request)
     {
         try {
@@ -44,7 +46,6 @@ class AsigController extends Controller
                 ->join('lessons', 'studentList.id_class', '=', 'lessons.id')
                 ->where('studentList.id_person', '=', $person->id)
                 ->get();
-
         } else {
             $hidden[] = [
                 'teacher' => '',
@@ -70,8 +71,16 @@ class AsigController extends Controller
     public function deleteSubject($id)
     {
         $signature = lesson::find($id);
-
         if ($signature) {
+            $actividades = $signature->activity;
+
+            if (!$actividades->isEmpty()) {
+                foreach ($actividades as $actividad) {
+                    $actividad->activity_details()->delete();
+                }
+                $signature->activity()->delete();
+            }
+            $signature->studentList()->delete();
             $signature->delete();
             return redirect()->back()->with('success', 'Actividad eliminada correctamente.');
         } else {

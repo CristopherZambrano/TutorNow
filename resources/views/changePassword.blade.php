@@ -7,6 +7,7 @@
             </div>
         </div>
     </div>
+    <hr style="background-color: #735AB6">
     <form method="POST" action="{{route('changePassword')}}">
         @csrf
         <div class="ct">

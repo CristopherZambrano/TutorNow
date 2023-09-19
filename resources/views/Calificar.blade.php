@@ -37,7 +37,8 @@
                         <th scope="row">{{ $estudiantes['num'] }}</th>
                         <td>{{ $estudiantes['nombre'] }}</td>
                         <td>{{ $estudiantes['apellido'] }}</td>
-                        <td>{{ $estudiantes['archivo'] }}</td>
+                        <td><a href="{{ asset('/uploads/' . $estudiantes['archivo']) }}"
+                                target="_blank">{{ $estudiantes['archivo'] }}</a></td>
                         <td data-id="{{ $estudiantes['id'] }}">
                             <form action="{{ route('actualizarcal', ['id' => $estudiantes['id']]) }}" method="POST">
                                 @csrf
@@ -77,7 +78,9 @@
                         _token: "{{ csrf_token() }}"
                     },
                     success: function(response) {
-                        $('body').append('<div class="alert alert-success"><span id="success-message">Actualizado correctamente</span></div>');
+                        $('body').append(
+                            '<div class="alert alert-success"><span id="success-message">Actualizado correctamente</span></div>'
+                            );
                         miBoton.prop('disabled', true);
                     },
                     error: function(error) {

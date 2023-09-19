@@ -25,9 +25,6 @@ class StudentController extends Controller
             ->where('s.id_class', $classId)
             ->get();
 
-        if ($persons->isEmpty()) {
-            echo "No tiene estudiantes registrados.";
-        } else {
             foreach ($persons as $person) {
                 $estudiantes[] = [
                     'num' => $count,
@@ -38,7 +35,6 @@ class StudentController extends Controller
                 $count++;
             }
             return view('StudentsClass', ['student' => $estudiantes, 'clase' => $clase]);
-        }
     }
 
     public function tareaStudent($id)

@@ -7,6 +7,7 @@
             </div>
         </div>
     </div>
+    <hr style="background-color: #735AB6">
     <div class="container">
         <div class="card card-edit">
             <div class="card-body">
