@@ -52,6 +52,7 @@ class StudentController extends Controller
             ->distinct()
             ->join('activity_details as s', 'p.id', '=', 's.idPersons')
             ->where('s.idActivity', $classId)
+            ->where('p.idTipoUser', 1)
             ->get();
 
         if ($persons->isEmpty()) {
@@ -73,11 +74,9 @@ class StudentController extends Controller
     }
     public function updateScore(Request $request, $id)
     {
-
         $newScore = $request->input('score');
         $student = detailsActivity::find($id);
         $student->score = $newScore;
-        //echo "Cal " . $student;
         $student->save();
         return response()->json(['message' => 'Calificación actualizada con éxito']);
     }

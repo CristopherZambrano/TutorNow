@@ -25,7 +25,6 @@ class activityController extends Controller
                 ->where('id_person', $person->id)
                 ->join('lessons', 'studentList.id_class', '=', 'lessons.id')
                 ->join('activity', 'lessons.id', '=', 'activity.id_lessons')
-                //->join('activity_details', 'activity.id', '=', 'activity_details.idActivity')
                 ->select(
                     'activity.id as activity_id',
                     'lessons.id as lesson_id',
@@ -34,15 +33,15 @@ class activityController extends Controller
                     'activity.title',
                     'activity.description',
                     'activity.deadline',
-                //    'activity_details.score',
-                //    'activity_details.status'
+                    'activity.state',
                 )
+                ->where('activity.state', '=', 'Pendiente')
                 ->get();
         } else {
+            //Actividades registradas por el docente que se encuentren pendientes
             $activitys = DB::table('persons')
                 ->join('lessons', 'persons.id', '=', 'lessons.id_persons')
                 ->join('activity', 'lessons.id', '=', 'activity.id_lessons')
-                //->join('activity_details', 'activity.id', '=', 'activity_details.idActivity')
                 ->select(
                     'activity.id as activity_id',
                     'lessons.id as lesson_id',
@@ -51,12 +50,10 @@ class activityController extends Controller
                     'activity.title',
                     'activity.description',
                     'activity.deadline',
-                //   'activity_details.score',
-                //    'activity_details.status'
+                    'activity.state',
                 )
                 ->where('persons.id', '=', $person->id)
-                //->where('deadline', '>', Carbon::today())
-                //->whereIn('status', ['Pendiente', 'En proceso'])
+                ->where('activity.state', '=', 'Pendiente')
                 ->orderBy('deadline', 'asc')
                 ->get();
         }
@@ -92,6 +89,7 @@ class activityController extends Controller
             $activity->description = $request->input('descImput');
             $activity->deadline = $request->input('dateImput');
             $activity->id_lessons = $request->input('asigSelect');
+            $activity->state = "Pendiente";
 
             if ($activity->deadline < Carbon::today()) {
                 return redirect()->route('Home')->with('error', 'Fecha no permitida');
@@ -109,14 +107,14 @@ class activityController extends Controller
         $person = session()->get('persona');
         $activity = activity::findOrFail($id);
         $detalleActivity = detailsActivity::where('idActivity', $id)
-                                            ->where('idPersons', $person->id);
-        if(isset($detalleActivity)){
+            ->where('idPersons', $person->id);
+        if (isset($detalleActivity)) {
             $detalleActivity->status = 'Pendiente';
         }
         $signature = lesson::findOrFail($activity->id_lessons);
         $youtube = new Youtube(['key' => env('YOUTUBE_API_KEY')]);
         $hidden = [];
-        
+
         if (($person->idTipoUser) === 1) {
             $hidden[] = ['teacher' => 'hidden', 'student' => ''];
         } else {
@@ -171,10 +169,11 @@ class activityController extends Controller
         ]);
     }
 
-    public function uploadFile(Request $request, $id){
+    public function uploadFile(Request $request, $id)
+    {
         $person = session()->get('persona');
         $request->validate([
-            'archivo' => 'required|mimes:pdf,docx|max:2048', 
+            'archivo' => 'required|mimes:pdf,docx|max:2048',
         ]);
         $archivo = $request->file('archivo');
         $nombreArchivo = time() . '_' . $archivo->getClientOriginalName();
@@ -200,19 +199,11 @@ class activityController extends Controller
         $activity = activity::find($id);
         $person = session()->get('persona');
         if ($activity) {
-/*             if (($person->idTipoUser) === 1) {
-                $Video = $request->has('checkVideo') ? 1 : 0;
-                $checkPdf = $request->has('checkPdf') ? 1 : 0;
-                $checkPpt = $request->has('checkPpt') ? 1 : 0;
-                $activity->status = $request->input('stateEditS');
-                $activity->video = $Video;
-                $activity->pdf = $checkPdf;
-                $activity->ppt = $checkPpt;
-            } else { */
-                $activity->id_lessons = $request->input('asigSelect');
-                $activity->description = $request->input('descImput');
-                $activity->deadline = $request->input('dateImput');
-                $activity->title = $request->input('titleImput');
+            $activity->id_lessons = $request->input('asigSelect');
+            $activity->description = $request->input('descImput');
+            $activity->deadline = $request->input('dateImput');
+            $activity->title = $request->input('titleImput');
+            $activity->state = $request->input('stateSelect');
             $activity->save();
             return redirect()->back()->with('success', 'Actividad actualizada correctamente.');
         } else {
@@ -222,11 +213,17 @@ class activityController extends Controller
 
     public function deleteActivity($id)
     {
+        $act_details = detailsActivity::find($id);
         $activity = activity::find($id);
 
-        if ($activity) {
-            $activity->delete();
-            return redirect()->route('Home')->with('success', 'Actividad eliminada correctamente.');
+        if ($act_details) {
+            $act_details->delete();
+            if ($activity) {
+                $activity->delete();
+                return redirect()->route('Home')->with('success', 'Actividad eliminada correctamente.');
+            } else {
+                return redirect()->back()->with('error', 'Error al eliminar.');
+            }
         } else {
             return redirect()->back()->with('error', 'Error al eliminar.');
         }

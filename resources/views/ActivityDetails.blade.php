@@ -61,11 +61,12 @@
                         <input class="btn btn-secondary" type="submit" value="Subir Archivo">
                     </div>
                 </form>
-                
-                    <a type="button" class="btn btn-outline-info" href="{{ route('calificar', ['id' => $activity['id']]) }}">
-                        <x-bi-bookmark-star /> Calificar
-                    </a>
-                
+
+                <a type="button" class="btn btn-outline-info"
+                    href="{{ route('calificar', ['id' => $activity['id']]) }}">
+                    <x-bi-bookmark-star /> Calificar
+                </a>
+
             </div>
         </div>
     </div>
@@ -86,6 +87,18 @@
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="stateSelect" class="form-label">Estado</label>
+                                <select class="form-select" aria-label="Default select example" name="stateSelect"
+                                    require>
+                                    <option value="Pendiente" {{ $activity->state == 'Pendiente' ? 'selected' : '' }}>
+                                        Pendiente
+                                    </option>
+                                    <option value="Completado" {{ $activity->state == 'Completado' ? 'selected' : '' }}>
+                                        Completado
+                                    </option>
+                                </select>
+                            </div>
                             <div class="mb-3">
                                 <label for="titleImput" class="form-label">Titulo</label>
                                 <input name="titleImput" value="{{ $activity->title }}" class="form-control"
