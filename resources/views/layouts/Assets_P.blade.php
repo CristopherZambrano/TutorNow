@@ -41,7 +41,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="{{asset('perfilUser')}}"> <x-bi-person-circle /> Perfil</a></li>
-                                <li><a class="dropdown-item" href="#"> <x-bi-key /> Contraseña</a></li>
+                                <li><a class="dropdown-item" href="{{asset('newPassword')}}"> <x-bi-key /> Contraseña</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>

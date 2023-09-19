@@ -90,6 +90,12 @@ Route::post('IngresarClase', [AsigController::class, 'RegisterClass'])->name('In
 
 Route::get('perfilUser', [PersonController::class,'perfilUser'])->name('perfilUser');
 
+Route::post('changePassword', [PersonController::class,'changePassword'])->name('changePassword');
+
+Route::get('newPassword', function(){
+    return view('changePassword');
 });
 
-//URL::forceScheme('https');
+});
+
+URL::forceScheme('https');

@@ -66,4 +66,22 @@ class PersonController extends Controller
                     'detalle' => $details    
                 ]);
     }
+
+    public function changePassword(Request $request){
+        $person = session()->get('persona');
+        $password = $request->input('password');
+        if($request->input('newPasswordV')===$request->input('newPassword')){
+            if($person->password ===$password){
+                $person->password = $request->input('newPassword');
+                $person->save();
+                return redirect()->route('perfilUser')->with('success', 'Contraseña cambiada');
+            }
+            else{
+                return redirect()->back()->withErrors(['error' => 'Contraseña incorrecta']);
+            }
+        }
+        else{
+            return redirect()->back()->withErrors(['error' => 'Las nuevas contraseñas no coinciden']);
+        }
+    }
 }
