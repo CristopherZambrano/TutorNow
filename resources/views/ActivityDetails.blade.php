@@ -190,7 +190,7 @@
                     </div>
                 </div>
             </div>
-            <div class="accordion-item">
+            {{-- <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
@@ -239,7 +239,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         <br />
     </div>

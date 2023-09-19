@@ -133,7 +133,7 @@ class activityController extends Controller
             }
         }
 
-        $client = new Client();
+       /*  $client = new Client();
         $response = $client->get('https://www.googleapis.com/customsearch/v1', [
             'query' => [
                 'q' => $query,
@@ -152,8 +152,8 @@ class activityController extends Controller
                 'cx' => env('ID_BUSCADOR'),
                 'fileType' => 'pptx',
             ],
-        ]);
-        $Diapositivas = json_decode($response->getBody(), true);
+        ]); */
+        //$Diapositivas = json_decode($response->getBody(), true);
 
         $signas = lesson::where('id_persons', $person->id)->get();
 
@@ -163,8 +163,8 @@ class activityController extends Controller
             'videos' => $videos,
             'signature' => $signature,
             'signas' => $signas,
-            'PDFs' => $PDFs,
-            'Diapositivas' => $Diapositivas,
+           // 'PDFs' => $PDFs,
+            //'Diapositivas' => $Diapositivas,
             'Hidden' => $hidden
         ]);
     }
