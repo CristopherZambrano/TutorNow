@@ -76,34 +76,34 @@
         });
     </script>
     <script>
-            var icono = document.getElementById("show-password");
-            var impPass = document.getElementById("inputPassword");
+            var icono2 = document.getElementById("show-password");
+            var impPass2 = document.getElementById("inputPassword");
     
-            icono.addEventListener("mouseover", function() {
-                icono.click(); // Simula un clic cuando el mouse pasa por encima
+            icono2.addEventListener("mouseover", function() {
+                icono2.click(); // Simula un clic cuando el mouse pasa por encima
             });
             
-            icono.addEventListener("click", function() {
-                if (impPass.type === "password") {
-                    impPass.type = "text"; // Cambia el tipo a "text".
+            icono2.addEventListener("click", function() {
+                if (impPass2.type === "password") {
+                    impPass2.type = "text"; // Cambia el tipo a "text".
                 } else {
-                    impPass.type = "password"; // Cambia el tipo a "password" si no lo es.
+                    impPass2.type = "password"; // Cambia el tipo a "password" si no lo es.
                 }
             });
         </script>
         <script>
-            var icono = document.getElementById("show-password-new");
-            var impPass = document.getElementById("inputNewPassword");
+            var icono3 = document.getElementById("show-password-new");
+            var impPass3 <= document.getElementById("inputNewPassword");
     
-            icono.addEventListener("mouseover", function() {
-                icono.click(); // Simula un clic cuando el mouse pasa por encima
+            icono3.addEventListener("mouseover", function() {
+                icono3.click(); // Simula un clic cuando el mouse pasa por encima
             });
             
-            icono.addEventListener("click", function() {
-                if (impPass.type === "password") {
-                    impPass.type = "text"; // Cambia el tipo a "text".
+            icono3.addEventListener("click", function() {
+                if (impPass3.type === "password") {
+                    impPass3.type = "text"; // Cambia el tipo a "text".
                 } else {
-                    impPass.type = "password"; // Cambia el tipo a "password" si no lo es.
+                    impPass3.type = "password"; // Cambia el tipo a "password" si no lo es.
                 }
             });
         </script>
