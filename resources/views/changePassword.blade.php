@@ -93,7 +93,7 @@
         </script>
         <script>
             var icono3 = document.getElementById("show-password-new");
-            var impPass3 <= document.getElementById("inputNewPassword");
+            var impPass3 = document.getElementById("inputNewPassword");
     
             icono3.addEventListener("mouseover", function() {
                 icono3.click(); // Simula un clic cuando el mouse pasa por encima
