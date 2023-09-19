@@ -173,7 +173,7 @@ class activityController extends Controller
     {
         $person = session()->get('persona');
         $request->validate([
-            'archivo' => 'required|mimes:pdf,docx|max:2048',
+            'archivo' => 'required|mimes:pdf,docx|max:5120',
         ]);
         $archivo = $request->file('archivo');
         $nombreArchivo = time() . '_' . $archivo->getClientOriginalName();
